@@ -1,0 +1,92 @@
+name: StarRNN layer identity check
+
+on:
+  # One-time evidence collection for a proposed one-line model correction.
+  push:
+    paths:
+      - evidence/trigger-starrnn-check-20261017.txt
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: CPU PyTorch
+        run: python -m pip install 'torch==2.10.0' --index-url https://download.pytorch.org/whl/cpu
+      - name: Original BreizhCrops at historical commit
+        uses: actions/checkout@v4
+        with:
+          repository: dl4sits/BreizhCrops
+          ref: 6de796ed36a457c8520322d6110b8f2862fd8c25
+          path: original
+      - name: Proposed isolated StarRNN patch
+        uses: actions/checkout@v4
+        with:
+          repository: mhatipog/BreizhCrops
+          ref: fix-starrnn-independent-layers
+          path: patched
+      - name: Check real source, layer identity and gradients
+        shell: bash
+        run: |
+          mkdir -p workflow-results
+          python - <<'PY'
+          import pathlib, importlib.util, torch, json, hashlib, difflib
+          original = pathlib.Path("original/breizhcrops/models/StarRNN.py")
+          patched = pathlib.Path("patched/breizhcrops/models/StarRNN.py")
+          s1 = original.read_text()
+          s2 = patched.read_text()
+          old = '*[StarLayer(input_dim=hidden_dims, hidden_dim=hidden_dims, droput_factor=dropout, device=device)] * (num_layers-1)'
+          new = '*[StarLayer(input_dim=hidden_dims, hidden_dim=hidden_dims, droput_factor=dropout, device=device) for _ in range(num_layers-1)]'
+          assert s1.count(old) == 1
+          assert s2 == s1.replace(old, new), "unexpected differences"
+          def make_model(path, name):
+              spec = importlib.util.spec_from_file_location(name, path)
+              mod = importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(mod)
+              torch.manual_seed(42)
+              return mod.StarRNN(input_dim=4, num_classes=3, hidden_dims=8, num_layers=3, dropout=0)
+          a = make_model(original, "starrnn_original")
+          b = make_model(patched, "starrnn_patched")
+          assert a.block[1] is a.block[2]
+          assert b.block[1] is not b.block[2]
+          assert a.block[1].cell.x_K.weight.data_ptr() == a.block[2].cell.x_K.weight.data_ptr()
+          assert b.block[1].cell.x_K.weight.data_ptr() != b.block[2].cell.x_K.weight.data_ptr()
+          na = dict(a.named_parameters())
+          nb = dict(b.named_parameters())
+          assert 'block.2.cell.x_K.weight' not in na
+          assert 'block.2.cell.x_K.weight' in nb
+          x = torch.randn(4, 8, 4)
+          y = torch.tensor([0, 1, 2, 1])
+          b.train()
+          loss = torch.nn.functional.nll_loss(b(x), y)
+          loss.backward()
+          assert b.block[1].cell.x_K.weight.grad is not None
+          assert b.block[2].cell.x_K.weight.grad is not None
+          record = {
+              "original_source_git_sha": "6de796ed36a457c8520322d6110b8f2862fd8c25",
+              "source_sha256": hashlib.sha256(original.read_bytes()).hexdigest(),
+              "patch_only_one_constructor_expression": True,
+              "original_depth3_layers_1_2_share_identity": a.block[1] is a.block[2],
+              "patched_depth3_layers_1_2_share_identity": b.block[1] is b.block[2],
+              "original_trainable_parameters": sum(p.numel() for p in a.parameters()),
+              "patched_trainable_parameters": sum(p.numel() for p in b.parameters()),
+              "both_patched_deep_layers_have_gradients": True,
+              "note": "Checks model construction and gradients, NOT crop classification performance."
+          }
+          pathlib.Path('workflow-results/starrnn-layer-identity.json').write_text(json.dumps(record, indent=2)+'\n')
+          print(json.dumps(record, indent=2))
+          PY
+      - name: Upload source comparison
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: starrnn-layer-check
+          path: workflow-results/*.json
+          retention-days: 14
+          if-no-files-found: warn
