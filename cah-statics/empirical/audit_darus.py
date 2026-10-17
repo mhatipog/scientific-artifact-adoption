@@ -57,25 +57,73 @@ def main():
                 print("RAW_HEADER",name,[repr(v[:200]) for v in lines[:6]])
                 print("RAW_DATA_LINE",name,[repr(v[:200]) for v in lines[24:75]])
                 print("RAW_TRAILER",name,[repr(v[:120]) for v in lines[-5:]])
-                numeric=[]
-                counts=Counter()
-                # Keep only a small bounded parsed preview, not the original dataset.
-                for line in lines:
-                    l=line.strip()
-                    if not l or l.startswith(("#","%","//")):continue
-                    vals=l.replace(";", " ").replace("\t"," ").split()
+                from datetime import datetime
+                from math import isfinite
+                marker=next((i for i,line in enumerate(lines) if line.strip()=="[Data]"),-1)
+                if marker<0:raise ValueError("Missing pressure logger [Data] block")
+                metadata={}
+                for line in lines[:marker]:
+                    pair=line.split("\t",1)
+                    if len(pair)==2: metadata[pair[0].strip()]=pair[1].strip()
+                record["original_instrument_metadata"]={
+                    key:value for key,value in metadata.items()
+                    if any(t in key.lower() for t in ("unit","phenomenon","model","calibration","sample"))}
+                t0=None
+                pressures=[]
+                times=[]
+                invalid=0
+                for line in lines[marker+1:]:
+                    row=line.split("\t")
+                    if len(row)<4:continue
+                    if row[3].strip()!="Valid":
+                        invalid+=1
+                        continue
                     try:
-                        floats=[float(v.replace(",",".")) for v in vals]
+                        time=datetime.fromisoformat(row[0]+"T"+row[1])
+                        value=float(row[2])
+                        if not isfinite(value):continue
                     except ValueError:continue
-                    counts[len(floats)]+=1
-                    if len(floats)>=2:numeric.append(floats[:4])
-                record["numeric_column_widths"]=dict(counts)
-                if numeric:
-                    columns=list(zip(*[v[:min(map(len,numeric))] for v in numeric]))
-                    record["numeric_rows"]=len(numeric)
-                    record["first_numeric_rows"]=numeric[:4]
-                    record["column_minmax"]=[{"min":min(c),"max":max(c)} for c in columns]
-                record["status"]="downloaded and parsed format; NOT model-validated"
+                    if t0 is None:t0=time
+                    times.append((time-t0).total_seconds())
+                    pressures.append(value)
+                if len(pressures)<100:raise ValueError("Fewer than 100 timestamped pressure samples")
+                from statistics import median
+                sampling=median([times[i+1]-times[i] for i in range(min(3000,len(times)-1))])
+                record["native_unit_warning"]="Read AlgorithmUnit in metadata, independently verify exported column units before Pa conversion"
+                record["valid_samples"]=len(pressures)
+                record["invalid_samples"]=invalid
+                record["elapsed_seconds"]=round(times[-1],6)
+                record["median_sampling_interval_seconds"]=round(sampling,8)
+                sorted_p=sorted(pressures)
+                record["pressure_native_min"]=min(pressures)
+                record["pressure_native_max"]=max(pressures)
+                record["pressure_native_q05"]=sorted_p[int(.05*(len(sorted_p)-1))]
+                record["pressure_native_q50"]=sorted_p[len(sorted_p)//2]
+                record["pressure_native_q95"]=sorted_p[int(.95*(len(sorted_p)-1))]
+                record["first_valid_samples"]=list(zip(times[:4],pressures[:4]))
+                # One-second blocks suppress high-frequency sensor jitter;
+                # the strongest 5s pressure decrease is *not* by itself a pore event.
+                from statistics import mean
+                block=max(1,round(1/sampling))
+                bt=[]; bp=[]
+                for j in range(0,len(pressures)-block+1,block):
+                    bt.append(mean(times[j:j+block]))
+                    bp.append(mean(pressures[j:j+block]))
+                lag=5
+                if len(bp)>lag:
+                    event=min(range(lag,len(bp)),key=lambda j: bp[j]-bp[j-lag])
+                    record["largest_five_second_decline_native"]={
+                        "delta":round(bp[event]-bp[event-lag],6),
+                        "t_start_s":round(bt[event-lag],3),
+                        "t_end_s":round(bt[event],3),
+                        "classification":"UNALIGNED diagnostic only; not independently a pore-filling jump"}
+                record["native_trace_one_second_blocks"]=len(bp)
+                # Store at most 900 samples per trace, not original raw observations.
+                stride=max(1,len(bp)//900)
+                record["decimated_trace"]=[[round(bt[j],2),round(bp[j],5)]
+                                            for j in range(0,len(bp),stride)]
+                record["status"]="raw pressure series parsed; event alignment and theoretical pressure predictions outstanding"
+
             except Exception as ex:
                 record["status"]="download failed"
                 record["error"]=str(ex)[:400]
@@ -86,7 +134,7 @@ def main():
         report["error"]=str(e)[:500]
     (OUT/"darus_lowflow_pressure_audit.json").write_text(json.dumps(report,indent=2,allow_nan=False))
     print(json.dumps({"status":report["status"],"files":[
-       {k:x.get(k) for k in ("name","status","numeric_rows","error","file_id")}
+       {k:x.get(k) for k in ("name","status","valid_samples","elapsed_seconds","pressure_native_min","pressure_native_max","largest_five_second_decline_native","error","file_id")}
        for x in report["files"]]},indent=2))
     print("No experimental quantitative fitting or agreement asserted.")
 
