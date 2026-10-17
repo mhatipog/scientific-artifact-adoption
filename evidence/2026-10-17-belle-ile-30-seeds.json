@@ -1,0 +1,216 @@
+{
+  "experiment": "Historical 2017 L1C Belle-Île original checkpoint, repeated upstream temporal sampling",
+  "run_url": "https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39021581078",
+  "artifact_url": "https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39021581078/artifacts/12097430601",
+  "trigger_commit": "b5ab35df647bf0befdebaa95a9d5218e19596fac",
+  "original_source_revision": "6de796ed36a457c8520322d6110b8f2862fd8c25",
+  "checkpoint_sha256": "6209b63e5763d343e5cc10c14b6bfae51f87ef16ec67f78e50c40b34d083b3af",
+  "dataset_h5_sha256": "cb6958ad7f037262ebfcfa0e551bb494b5ff8fbe25f6ca955dd31cdc62879b3f",
+  "samples_per_seed": 1049,
+  "original_one_run_test_threshold": 0.65,
+  "status": "completed",
+  "github_actions_conclusion": "success",
+  "seeds": [
+    {
+      "seed": 0,
+      "correct": 689,
+      "n": 1049,
+      "accuracy": 0.6568160152526216
+    },
+    {
+      "seed": 1,
+      "correct": 689,
+      "n": 1049,
+      "accuracy": 0.6568160152526216
+    },
+    {
+      "seed": 2,
+      "correct": 677,
+      "n": 1049,
+      "accuracy": 0.6453765490943756
+    },
+    {
+      "seed": 3,
+      "correct": 689,
+      "n": 1049,
+      "accuracy": 0.6568160152526216
+    },
+    {
+      "seed": 4,
+      "correct": 684,
+      "n": 1049,
+      "accuracy": 0.652049571020019
+    },
+    {
+      "seed": 5,
+      "correct": 695,
+      "n": 1049,
+      "accuracy": 0.6625357483317446
+    },
+    {
+      "seed": 6,
+      "correct": 672,
+      "n": 1049,
+      "accuracy": 0.6406101048617732
+    },
+    {
+      "seed": 7,
+      "correct": 669,
+      "n": 1049,
+      "accuracy": 0.6377502383222117
+    },
+    {
+      "seed": 8,
+      "correct": 682,
+      "n": 1049,
+      "accuracy": 0.6501429933269781
+    },
+    {
+      "seed": 9,
+      "correct": 685,
+      "n": 1049,
+      "accuracy": 0.6530028598665396
+    },
+    {
+      "seed": 10,
+      "correct": 682,
+      "n": 1049,
+      "accuracy": 0.6501429933269781
+    },
+    {
+      "seed": 11,
+      "correct": 681,
+      "n": 1049,
+      "accuracy": 0.6491897044804575
+    },
+    {
+      "seed": 12,
+      "correct": 676,
+      "n": 1049,
+      "accuracy": 0.6444232602478551
+    },
+    {
+      "seed": 13,
+      "correct": 677,
+      "n": 1049,
+      "accuracy": 0.6453765490943756
+    },
+    {
+      "seed": 14,
+      "correct": 686,
+      "n": 1049,
+      "accuracy": 0.6539561487130601
+    },
+    {
+      "seed": 15,
+      "correct": 682,
+      "n": 1049,
+      "accuracy": 0.6501429933269781
+    },
+    {
+      "seed": 16,
+      "correct": 687,
+      "n": 1049,
+      "accuracy": 0.6549094375595805
+    },
+    {
+      "seed": 17,
+      "correct": 687,
+      "n": 1049,
+      "accuracy": 0.6549094375595805
+    },
+    {
+      "seed": 18,
+      "correct": 687,
+      "n": 1049,
+      "accuracy": 0.6549094375595805
+    },
+    {
+      "seed": 19,
+      "correct": 695,
+      "n": 1049,
+      "accuracy": 0.6625357483317446
+    },
+    {
+      "seed": 20,
+      "correct": 698,
+      "n": 1049,
+      "accuracy": 0.665395614871306
+    },
+    {
+      "seed": 21,
+      "correct": 685,
+      "n": 1049,
+      "accuracy": 0.6530028598665396
+    },
+    {
+      "seed": 22,
+      "correct": 697,
+      "n": 1049,
+      "accuracy": 0.6644423260247855
+    },
+    {
+      "seed": 23,
+      "correct": 682,
+      "n": 1049,
+      "accuracy": 0.6501429933269781
+    },
+    {
+      "seed": 24,
+      "correct": 671,
+      "n": 1049,
+      "accuracy": 0.6396568160152526
+    },
+    {
+      "seed": 25,
+      "correct": 683,
+      "n": 1049,
+      "accuracy": 0.6510962821734986
+    },
+    {
+      "seed": 26,
+      "correct": 682,
+      "n": 1049,
+      "accuracy": 0.6501429933269781
+    },
+    {
+      "seed": 27,
+      "correct": 690,
+      "n": 1049,
+      "accuracy": 0.657769304099142
+    },
+    {
+      "seed": 28,
+      "correct": 684,
+      "n": 1049,
+      "accuracy": 0.652049571020019
+    },
+    {
+      "seed": 29,
+      "correct": 658,
+      "n": 1049,
+      "accuracy": 0.6272640610104862
+    }
+  ],
+  "statistics_from_original_json": {
+    "mean_accuracy": 0.6514458214172227,
+    "min_accuracy": 0.6272640610104862,
+    "max_accuracy": 0.665395614871306,
+    "standard_deviation_across_seeds": 0.008198526157337386,
+    "mean_accuracy_95pct_monte_carlo_t_interval": [
+      0.6483844414377011,
+      0.6545072013967443
+    ],
+    "accuracy_quantiles": {
+      "p05": 0.6386081982840801,
+      "p25": 0.6494280266920877,
+      "p50": 0.652049571020019,
+      "p75": 0.6563393708293613,
+      "p95": 0.663584366062917
+    },
+    "seeds_at_or_above_original_threshold": 22,
+    "seeds_below_original_threshold": 8
+  },
+  "limitations": "30 runs all evaluate the same 1049 fields and same checkpoint. Only random temporal subsampling differs. Intervals do not quantify uncertainty in population out-of-sample accuracy.",
+  "retention": "GitHub Actions artifacts expire; this extracted summary and all seed count records are preserved in Git."
+}
