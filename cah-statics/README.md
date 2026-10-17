@@ -108,3 +108,14 @@ and it does not automatically declare empirical agreement.
 This code is an independently written reduced model. It does not incorporate
 authors' copyrighted experimental photographs, proprietary image series, or
 upstream simulation source. Scientific credit goes to the above work.
+
+
+## Research update: local bifurcation classification
+
+See [Round 2: symmetry breaking and quartic-sign criterion](ROUND2_BIFURCATION.md). The earlier finite-jump calculation does not apply universally to all contact angles; a smooth onset is predicted in another part of parameter space.
+
+
+**Novelty caution:** the central subcritical-pitchfork mechanism and
+fold/pitchfork competition are already established by Wells et al.
+(*Nature Communications*, 2018) and Bisquert et al. (*Langmuir*, 2024),
+both coauthored by Marc Pradas. See the [explicit prior-art comparison](ROUND2_BIFURCATION.md#critical-novelty-audit--closest-previous-work).
