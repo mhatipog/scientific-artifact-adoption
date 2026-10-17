@@ -1,0 +1,5 @@
+One-time 30-seed authenticity and stochasticity benchmark request
+Date: 2026-10-17
+Requested by repository owner in the ChatGPT scientific-artifact-adoption project.
+Scope: original BreizhCrops Belle-Île 2017 L1C, official checkpoint, 30 fixed seeds 0-29.
+No schedules; delete/disable this one-time push trigger after execution.
