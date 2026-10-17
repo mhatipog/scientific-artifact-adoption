@@ -4,7 +4,15 @@ on:
   workflow_dispatch:
   pull_request:
     paths:
-      - 'cah-statics/**'
+      - 'cah-statics/model.py'
+      - 'cah-statics/tests/**'
+      - 'cah-statics/plot.py'
+      - 'cah-statics/audit_pore.py'
+      - 'cah-statics/bifurcation.py'
+      - 'cah-statics/phase_isospectral.py'
+      - 'cah-statics/young_laplace_depth.py'
+      - 'cah-statics/requirements.txt'
+      - 'cah-statics/ROUND*.md'
       - '.github/workflows/cah-statics.yml'
 
 permissions:
