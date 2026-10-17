@@ -90,6 +90,57 @@ with full uncertainty budgets. Plot measured \(\Delta c\) versus
 \(V-V_c\) and check whether one finds \(\Delta c\propto|V-V_c|^{1/2}\)
 (continuous onset) or a finite jump/hysteresis (discontinuous onset).
 
+
+## Critical novelty audit — closest previous work
+
+Two closely related studies **must** be acknowledged before treating these
+bifurcations as novel:
+
+1. **Wells, Ruiz-Gutiérrez, Le Lirzin, Nourry, Orme, Pradas &
+   Ledesma-Aguilar, Nature Communications 9:1380 (2018)**,
+   [Snap evaporation of droplets on smooth topographies](https://doi.org/10.1038/s41467-018-03840-6).
+   This work already predicts and observes lateral snap transitions on smooth
+   corrugated surfaces via a **subcritical pitchfork that precedes a
+   symmetric fold**, including symmetric and asymmetric branches.
+2. **Bisquert, Ruiz-Gutiérrez, Pradas & Ledesma-Aguilar,
+   Langmuir 40:24387–24396 (2024)**,
+   [Competing Bifurcations Determine Symmetry Breaking During Droplet
+   Snaps on Smooth Patterned Surfaces](https://doi.org/10.1021/acs.langmuir.4c02908).
+   This work explicitly compares fold and pitchfork competitions across
+   topography amplitude, equilibrium contact angle, and growth/evaporation.
+
+**Therefore: neither a pitchfork bifurcation, subcritical snap, nor the
+concept of a topography/contact-angle parameter map is new.** Marc Pradas
+coauthored both studies and the 2019 microchannel statics paper. Our
+provisional incremental result is a particularly compact
+\`H\`-and-\`p\` derivative criterion to distinguish *supercritical from
+subcritical* onset for a different physical confinement (a finite plug
+between **two symmetric corrugated walls** and two coupled free interfaces).
+
+The numerical value 37.145° has no experimental standing without
+independently measured wall profiles and Young angles. We do **not** claim
+the coefficient is absent from the wider literature; a detailed
+method-by-method comparison with the above authors is still required.
+
+**Important mathematical qualification:** in *planar* capillarity an
+unobstructed, constant-curvature circular arc satisfying the wall
+contact-angle condition is an exact Young–Laplace solution within
+its symmetric interface class. However, the current model has not
+excluded additional asymmetric contact-line modes on opposite walls,
+nonlocal contact of an arc with a corrugation, or the experimental
+channel's fully three-dimensional meniscus response. Consequently the
+full experimental stability threshold still needs validation.
+
+**Professor-style publishability conclusion (17 October 2026):**
+not journal-ready. As an internal reproducible mathematical note it is
+useful; for *Langmuir* or *Physics of Fluids* it needs demonstrably new
+predictive value over Wells (2018) and Bisquert (2024), preferably
+blind quantitative comparison to measured corrugated-channel trajectories.
+*Physical Review Fluids* would additionally need a broad or universal
+insight beyond the special sinusoidal example. A repo update and
+potential collaborator discussion are appropriate now; a submission is not.
+
+
 ### Scholarly positioning (critical)
 
 Symmetry breaking, capillary metastability, and Haines jumps are known
