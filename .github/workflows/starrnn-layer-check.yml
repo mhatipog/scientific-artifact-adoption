@@ -1,10 +1,6 @@
 name: StarRNN layer identity check
 
 on:
-  # One-time evidence collection for a proposed one-line model correction.
-  push:
-    paths:
-      - evidence/trigger-starrnn-check-20261017.txt
   workflow_dispatch:
 permissions:
   contents: read
