@@ -213,9 +213,11 @@ def main():
        "planar constant-curvature meniscus exactly satisfies\\n"
        "the 3D Young–Laplace equation. Principal curvatures:\\n"
        "(κ, 0); pressure = γκ. This holds at any depth.\\n\\n"
-       "NOT proven: stability to z-dependent modes,\\n"
-       "or behaviour at other plate contact angles.\\n\\n"
-       "Image blur does not physically smooth the walls.",
+       "At the selected critical state, a positive Jacobi\\n"
+       "ground mode gives vertical-mode gaps ≥ (π/d)².\\n"
+       "Not established: the complete 3D branch history,\\n"
+       "non-90° plate wetting, or experimental jump sizes.\\n\\n"
+       "Image blur does NOT physically smooth the walls.",
        fontsize=11.5,va="top",linespacing=1.7,
        transform=axs[1,1].transAxes)
     fig.suptitle("Exact-interface benchmark and physical shape sensitivity",
