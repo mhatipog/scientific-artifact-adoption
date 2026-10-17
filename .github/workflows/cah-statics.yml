@@ -23,7 +23,7 @@ jobs:
           cache-dependency-path: cah-statics/requirements.txt
       - run: python -m pip install -r cah-statics/requirements.txt
       - name: Verify internal mathematical consistency
-        run: python cah-statics/tests/test_model.py
+        run: PYTHONPATH=cah-statics python cah-statics/tests/test_model.py
       - name: Regenerate explanatory figures and model table
         run: python cah-statics/plot.py
       - name: Reproduce explicitly approximate Yan figure diagnostic
