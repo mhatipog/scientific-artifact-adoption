@@ -47,10 +47,10 @@ class PhaseMatchedPlug(PlugModel):
             np.sin(4*self.k*np.asarray(x))/(4*self.k))
 
 
-def quartic(b):
+def quartic(b, theta=THETA):
     """High precision local derivative criterion of Round 2."""
     k=2*mp.pi/mp.mpf(str(LAM))
-    a=mp.mpf(str(A));b=mp.mpf(str(b));th=mp.radians(THETA)
+    a=mp.mpf(str(A));b=mp.mpf(str(b));th=mp.radians(theta)
     def w(x):return 1+a*mp.cos(k*x)+b*(mp.cos(2*k*x)-mp.cos(4*k*x))
     def alpha(x):
         dw=-a*k*mp.sin(k*x)+b*(-2*k*mp.sin(2*k*x)+4*k*mp.sin(4*k*x))
@@ -147,6 +147,14 @@ def run():
                         near_branch_stable=branch["stable"],
                         near_branch_min_eigenvalue=branch["stiffness_min"],
                         circular_meniscus_clearance_mm=clearance))
+    # Locate angular domain of opposite signs; sample bracket independently.
+    lower=brentq(lambda th:quartic(-B,theta=th)[1],33.,35.,xtol=1e-8)
+    upper=brentq(lambda th:quartic(B,theta=th)[1],39.,40.,xtol=1e-8)
+    assert 33.2<lower<33.3 and 39.3<upper<39.4
+    window=dict(intrinsic_young_angle_lower_deg=lower,
+                intrinsic_young_angle_upper_deg=upper,
+                interpretation="opposite local B4 signs, not guaranteed opposite full trajectories")
+    (OUT/"isospectral_angle_window.json").write_text(json.dumps(window,indent=2))
     with (OUT/"isospectral_phase_switch.csv").open("w",newline="") as f:
         writer=csv.DictWriter(f,fieldnames=list(rows[0]))
         writer.writeheader();writer.writerows(rows)
@@ -155,6 +163,7 @@ def run():
         "same":[ "mean width", "min/max width", "rms width", "rms wall slope",
                  "Fourier power spectrum", "period", "Young angle"],
         "different":"relative Fourier phases",
+        "angle_window":window,
         "results":rows},indent=2))
 
     fig=plt.figure(figsize=(12.8,8.7),layout="constrained")
@@ -195,6 +204,7 @@ def run():
     fig.savefig(OUT/"isospectral_snap_design.png",dpi=185)
     fig.savefig(OUT/"isospectral_snap_design.svg")
     plt.close(fig)
+    print("Opposite-sign intrinsic-angle window (degrees)",window)
     print("PASS identical widths and roughness power statistics:",[(r["profile"],r["quartic_B4"],r["near_branch_stable"]) for r in rows])
     print("PASS full constrained Hessian, adjacent pressure/volume branches, cap clearance")
     print("NOT TESTED: measured wall profiles, real pinning, jump lengths, 3D meniscus stability")
