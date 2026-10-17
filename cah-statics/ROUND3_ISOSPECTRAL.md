@@ -32,6 +32,13 @@ the fundamental remains fixed.
 | Adjacent asymmetric branches | **unstable** | **stable** |
 | Local transition | **subcritical** | **supercritical** |
 
+For this isospectral pair, the signs stay opposite for intrinsic Young
+angles approximately **33.22008° to 39.30682°**, a 6.09°-wide interval.
+The two endpoint values are located by bracketing the zero of the same
+quartic coefficient, separately for each shape; the included script
+recomputes and asserts this window. This is still a **theoretical angle
+window**, not an experimental error bar.
+
 The coefficient is computed via the analytic criterion from Round 2,
 
 \[
