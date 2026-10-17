@@ -7,6 +7,10 @@ on:
       - 'cah-statics/round5_3d/**'
       - '.github/workflows/cah-round5-3d.yml'
 
+concurrency:
+  group: cah-3d-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
