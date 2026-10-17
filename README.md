@@ -2,6 +2,25 @@
 
 An independent, **unofficial** scientific reproducibility project. Its first target is the [BreizhCrops crop-classification benchmark](https://github.com/dl4sits/BreizhCrops) associated with Rußwurm et al., *BreizhCrops: A Time Series Dataset for Crop Type Mapping* (ISPRS Archives, 2020), [DOI 10.5194/isprs-archives-XLIII-B2-2020-1545-2020](https://doi.org/10.5194/isprs-archives-XLIII-B2-2020-1545-2020).
 
+## Repeated-seed result (17 October 2026)
+
+**Completed real-data reproduction experiment**: the original pretrained Transformer, upstream source revision `6de796e`, and 2017 L1C Belle-Île dataset (1,049 fields) ran successfully in a CPU GitHub Actions job over 30 fixed seeds. No original model/dataset/transform changes.
+
+| Metric | Observed |
+| --- | ---: |
+| Mean accuracy across random temporal samplings | **65.14%** |
+| Standard deviation across seeds | 0.82 percentage points |
+| Minimum / maximum seed accuracy | 62.73% / 66.54% |
+| Seeds at or above the historical 65% single-run floor | **22 / 30** |
+| Seeds below the floor | **8 / 30** |
+| Approximate 95% Monte Carlo interval for mean | 64.84%–65.45% |
+
+The 65% floor comes from the upstream fast Transformer test's `0.69 - 0.04` regression tolerance. It is **not a guarantee across all seeds**. Its stochastic pass/fail outcome is meaningful for regression-test design. The interval only covers random temporal subsampling on the same fields and checkpoint, **not generalization to other field datasets**. The reported mean does not demonstrate the original nominal 69% expected value.
+
+[Permanent 30-seed results](evidence/2026-10-17-belle-ile-30-seeds.json) · [successful workflow run](https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39021581078) · [original 3-seed run](https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39020692334)
+
+**The workflow has been returned to manual-only mode.** No scheduled or push-triggered jobs are left active.
+
 ## Current evidence
 
 - The upstream Transformer source at commit `6de796ed36a457c8520322d6110b8f2862fd8c25` was tested locally with modern CPU PyTorch, with correctly shaped, normalized outputs.
@@ -38,6 +57,6 @@ Related follow-on research on thin-strip contact-line solvers and bendotaxis is 
 
 Possible downstream adoption: [TorchGeo request #3618](https://github.com/torchgeo/torchgeo/issues/3618) (BreizhCrops dataset). Any future integration should preserve the original benchmark's dataset semantics and attribution.
 
-## Next experiment
+## Re-run the experiment
 
-The manually dispatched real-data workflow now runs 30 fixed seeds. Navigate to [Actions](https://github.com/mhatipog/scientific-artifact-adoption/actions/workflows/breizhcrops-reproduction.yml), click **Run workflow**, set `run_real_benchmark` to **true** and use branch `main`. No schedule or push trigger is enabled, so expensive downloads cannot start unexpectedly. Retrieve the JSON evidence artifact; it is retained for 14 days. Do not interpret 30 Monte Carlo seeds as 30 independent geographic test sets.
+For an independent rerun, navigate to [GitHub Actions](https://github.com/mhatipog/scientific-artifact-adoption/actions/workflows/breizhcrops-reproduction.yml), click **Run workflow**, set `run_real_benchmark` to **true**, and select `main`. The full test uses 30 deterministic seeds of the original stochastic evaluation procedure, and uploads JSON evidence only. No scheduled or push triggers remain. The evidence artifact expires after 14 days; the summarized original run is preserved permanently under `evidence/`.
