@@ -188,6 +188,39 @@ the cylindrical equilibrium and require solving a truly 3D
 Young–Laplace boundary-value problem.
 
 
+
+## Distant equilibria: correcting the "jump-free phase" interpretation
+
+A separate **global-landscape audit** at each profile's critical volume
+solves the shared-pressure, equal-volume equations for *distant*
+stationary states, then checks the full four-variable constrained
+energy Hessian (both contact positions and both cap angles). The selected
+reflection-related destinations are lower in energy and locally stable
+in the original two-dimensional reduced model:
+
+| Profile | Local onset class | Distant stable centre shift | Length reduction | Lower normalized capillary energy by |
+|---|---|---:|---:|---:|
+| Minus Fourier phase | Subcritical | +150 µm | ~221.22 µm | ~0.07070 |
+| Plus Fourier phase | Supercritical | +150 µm | ~208.58 µm | ~0.06674 |
+
+**The essential interpretation:** *both* channels already possess
+lower-energy distant stationary configurations at their respective
+local critical volumes. Therefore the original "opposite local
+pitchfork classification" is valid, but it is **not** a prediction
+that one sample never jumps while the other always jumps.
+The route between branches depends on driving history, nucleation,
+noise, capillary barriers and possibly moving-contact-line dynamics.
+No finite-distance jump is uniquely selected by the equal-energy
+constraint alone. This check is a correction to any overly broad
+experimental design claim in earlier rounds.
+
+The numerical values are **model-only**; there is no measured channel
+wall trace or video sequence associated with them. They provide
+candidate target states, **not measured jump distances**. The separate
+full three-dimensional stability of those distant states has not been
+established.
+
+
 ## Scientific judgement after Round 4
 
 - **Independent planar YL verification:** strong, but a known elementary
