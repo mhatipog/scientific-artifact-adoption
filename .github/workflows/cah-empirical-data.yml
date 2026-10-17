@@ -1,0 +1,29 @@
+name: CAH experiment — DaRUS pressure audit
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'cah-statics/empirical/**'
+      - '.github/workflows/cah-empirical-data.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Fetch 3 low-flow pressure files and check structure, no fitting
+        run: python cah-statics/empirical/audit_darus.py
+      - name: Produce annotated SVG from measured pressure recordings
+        run: python cah-statics/empirical/plot_pressure_svg.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cah-independent-pressure-data-audit
+          path: |
+            cah-statics/empirical/outputs/empirical/darus_lowflow_pressure_audit.json
+            cah-statics/empirical/outputs/empirical/measured_pressure_traces.svg
+          retention-days: 7
