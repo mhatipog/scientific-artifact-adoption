@@ -36,6 +36,8 @@ jobs:
             'h5py==3.15.1' 'geopandas==1.1.2' \
             'scikit-learn==1.8.0' 'pytest==9.0.2' \
             'matplotlib' 'tqdm' 'requests'
+      - name: Verify independent harness behavior offline
+        run: python -m pytest -q breizhcrops/tests
       - name: Clone original code at historical revision
         shell: bash
         run: |
