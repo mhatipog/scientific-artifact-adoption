@@ -1,0 +1,92 @@
+name: BreizhCrops scientific reproduction
+
+# Explicitly manual: avoids unexpected dataset downloads or CPU usage.
+on:
+  workflow_dispatch:
+    inputs:
+      run_real_benchmark:
+        description: "Download original 2017 Belle-Ile data and pretrained Transformer"
+        required: true
+        default: false
+        type: boolean
+permissions:
+  contents: read
+concurrency:
+  group: breizhcrops-reproduction
+  cancel-in-progress: false
+jobs:
+  scientific-reproduction:
+    name: Original-source CPU evaluation
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out independent harness
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install CPU-only dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install 'torch==2.10.0' --index-url https://download.pytorch.org/whl/cpu
+          python -m pip install \
+            'numpy==2.3.5' 'pandas==2.2.3' 'scipy==1.17.0' \
+            'h5py==3.15.1' 'geopandas==1.1.2' \
+            'scikit-learn==1.8.0' 'pytest==9.0.2' \
+            'matplotlib' 'tqdm' 'requests'
+      - name: Clone original code at historical revision
+        shell: bash
+        run: |
+          mkdir -p upstream workflow-results
+          git clone https://github.com/dl4sits/BreizhCrops.git upstream/BreizhCrops
+          git -C upstream/BreizhCrops checkout --detach 6de796ed36a457c8520322d6110b8f2862fd8c25
+          test "$(git -C upstream/BreizhCrops rev-parse HEAD)" = "6de796ed36a457c8520322d6110b8f2862fd8c25"
+      - name: Original Transformer synthetic CPU smoke test (not paper reproduction)
+        shell: bash
+        run: |
+          python - <<'PY'
+          import sys, json, pathlib, torch
+          sys.path.insert(0, str(pathlib.Path('upstream/BreizhCrops').resolve()))
+          from breizhcrops.models import TransformerModel
+          torch.manual_seed(1234)
+          model = TransformerModel(input_dim=13, num_classes=9).cpu().eval()
+          with torch.inference_mode():
+              output = model(torch.zeros(2,45,13))
+          assert list(output.shape) == [2,9]
+          assert bool(torch.isfinite(output).all())
+          assert torch.allclose(output.exp().sum(dim=1), torch.ones(2), atol=1e-5)
+          report = {
+              "status": "pass", "kind": "synthetic_original_model_smoke_only",
+              "upstream_commit": "6de796ed36a457c8520322d6110b8f2862fd8c25",
+              "input_shape": [2,45,13], "output_shape": list(output.shape),
+              "parameters": sum(p.numel() for p in model.parameters()),
+              "torch": torch.__version__,
+              "limitations": "Untrained model and synthetic inputs; NO published-data accuracy"
+          }
+          pathlib.Path('workflow-results/transformer-smoke.json').write_text(
+              json.dumps(report, indent=2) + '\n')
+          print(json.dumps(report, indent=2))
+          PY
+      - name: Evaluate original Belle-Ile data and official checkpoint
+        if: inputs.run_real_benchmark
+        shell: bash
+        run: |
+          python breizhcrops/run_benchmark.py \
+            --upstream-checkout upstream/BreizhCrops \
+            --require-upstream-revision \
+            --dataset-root data/breizhcrops \
+            --weights data/transformer-official.pth \
+            --download-official-weights \
+            --region belle-ile \
+            --seeds 0 1 2 \
+            --output workflow-results/breizhcrops-real.json
+      - name: Upload JSON scientific evidence only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: breizhcrops-reproduction-evidence
+          path: workflow-results/*.json
+          retention-days: 14
+          if-no-files-found: warn
