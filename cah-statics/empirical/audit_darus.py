@@ -54,6 +54,8 @@ def main():
                 record["sample_first_8_lines"]=raw.decode("utf-8-sig",errors="replace").splitlines()[:8]
                 lines=raw.decode("utf-8-sig",errors="replace").splitlines()
                 record["total_lines"]=len(lines)
+                print("RAW_HEADER",name,[repr(v[:200]) for v in lines[:6]])
+                print("RAW_DATA_LINE",name,[repr(v[:200]) for v in lines[20:24]])
                 numeric=[]
                 counts=Counter()
                 # Keep only a small bounded parsed preview, not the original dataset.
