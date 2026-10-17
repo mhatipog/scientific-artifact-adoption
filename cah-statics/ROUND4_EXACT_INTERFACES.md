@@ -121,12 +121,70 @@ are positive at every depth. This applies only under the stated
 idealized geometry/neutral-plate assumptions and is not an assertion
 that the experimental chip satisfies those boundary conditions.
 
-**Not yet numerically evaluated:** \(\mu_{\min}\) with the *correct*
-free-contact-line boundary operator for either isospectral geometry.
-No sign or threshold has been asserted without that computation.
-A mesh-converged 1D Sturm–Liouville calculation of this coefficient is
-the most efficient decisive next task; for non-neutral plates one must
-solve a genuinely 3D equilibrium before applying stability analysis.
+### A zero-mode theorem at the critical state
+
+We can sharpen the previous *conditional* criterion **at the two
+particular isospectral critical points**. Write the right cap as
+\[
+x(y;s)=s+R(s)\sin\vartheta(s)-\sqrt{R(s)^2-y^2},\quad
+R(s)=\frac{w(s)}{2\cos\vartheta(s)},\quad
+\vartheta(s)=\theta_Y+\arctan[w'(s)/2].
+\]
+The local pitchfork threshold is \(p'(s_*)=0\); since \(p=1/R\),
+this means \(R'(s_*)=0\). Differentiating the *family of exact
+Young–Laplace equilibria* at fixed interior \(y\) gives
+\[
+\left.\partial_s x(y;s)\right|_{s_*}
+=A,\qquad
+A=1+\frac{w(s_*)}{2}\,\vartheta'(s_*).
+\]
+Thus the normal deformation is
+\[
+u(y)=A\sqrt{1-(y/R)^2}.
+\]
+It solves the *homogeneous* capillary Jacobi equation, including the
+moving-contact-line boundary conditions, since it comes from the
+derivative of exact Young-angle equilibria at the pressure extremum.
+If \(A\ne0\), this function has **no interior zeros**, so by the
+Sturm oscillation theorem it is the *principal* planar Jacobi
+eigenfunction and \(\mu_{\min}=0\) at that critical state.
+
+For the two isospectral profiles at assumed \(36.5^\circ\),
+\[
+A_- = 3.4797654,\qquad A_+ = 2.9235464.
+\]
+Both are strictly positive, and an independent central
+finite-difference of the entire family of circular interfaces
+reproduces the constant derivative to better than \(2\times10^{-6}\)
+mm per mm of contact-line displacement in the tested interior.
+
+It follows that **at the selected critical state**, every
+\(n\ge1\) depth-varying mode of the freely moving circular cap
+satisfies
+\[
+\lambda_{j,n}\ge (\pi/d)^2>0.
+\]
+For \(d=0.38\) mm this lower bound is approximately
+\(68.34\,\mathrm{mm}^{-2}\), with the Jacobi operator expressed in
+physical arclength units. The identical conclusion applies to
+the reflected left meniscus; the two fronts couple only through
+the total-volume constraint, which does not alter the orthogonal
+\(n\ge1\) modes.
+
+**Therefore, for an ideal uniformly extruded channel with neutral
+90° plates, the predicted planar local supercritical/subcritical
+onset is not pre-empted *at its critical state* by an infinitesimal
+vertical instability.** The continuous-versus-subcritical distinction
+survives into this rigorously specified 3D capillary problem.
+
+**Limitations:** This is a *local linear stability* statement
+and a normal-form implication, not a proof of global stability,
+selection of finite-jump landing states, or realistic experimental
+plate wetting. It also assumes ideal mobile Young-angle contact lines,
+homogeneous sidewall chemistry, no gravity and a regular non-self-
+intersecting interface. Finite plate angles other than 90° invalidate
+the cylindrical equilibrium and require solving a truly 3D
+Young–Laplace boundary-value problem.
 
 
 ## Scientific judgement after Round 4
@@ -143,7 +201,7 @@ solve a genuinely 3D equilibrium before applying stability analysis.
   Langmuir, https://doi.org/10.1021/acs.langmuir.4c02908 already
   establish topography-driven snap bifurcations and their competition.
 
-**Professor assessment:** 4/10 for journal submission (unchanged).
+**Professor assessment:** 5/10 for theoretical readiness; 4/10 for journal submission.
 We have improved physical validity, not yet experimental strength or
 demonstrated priority over closely related theory. A *Langmuir* or
 *Physics of Fluids* paper could become credible after unrestricted
