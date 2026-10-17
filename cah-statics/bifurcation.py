@@ -88,7 +88,7 @@ def fixed_volume_quartic_check(angle_deg=40., amplitude_mm=.05):
         x1,x2=s-c,s+c
         return w(x1)*arc(t(x1))+w(x2)*arc(t(x2))-2*mp.cos(theta)*(S(x2)-S(-x1))
     e0=E(mp.mpf("0"),s0)
-    cvals=[mp.mpf(z) for z in [".008",".012",".016",".020",".024",".028"]]
+    cvals=[mp.mpf(z) for z in [".003",".005",".007",".009",".011",".013"]]
     M=mp.matrix([[c**4,c**6,c**8,c**10,c**12,c**14] for c in cvals])
     differences=[]
     for c in cvals:
