@@ -23,5 +23,19 @@
     "distinct_deep_layers_receive_gradients": true
   },
   "interpretation": "Depth>2 in current StarRNN aliases the same StarLayer module repeatedly. Layer repetition uses tied weights and batch-normalization state rather than independent recurrent layers. This is a verified architecture/optimization distinction; no crop-classification score or generalization improvement has yet been demonstrated.",
-  "upstream_status": "NOT submitted as a PR; InceptionTime upstream PR #39 is open"
+  "upstream_status": "NOT submitted as a PR; InceptionTime upstream PR #39 is open",
+  "checkpoint_verification": {
+    "run": "https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39024811080",
+    "artifact": "https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39024811080/artifacts/12098311399",
+    "original_star_pretrained_checkpoint_sha256": "5646148d08c6c8e319de222f85916c5e0993aae576a43c553333a221d13717eb",
+    "checkpoint_bytes": 298385,
+    "load_state_dict_original_strict": true,
+    "load_state_dict_corrected_strict": true,
+    "max_abs_prediction_difference_for_identical_synthetic_inputs": 0,
+    "default_architecture_trainable_parameters": {
+      "original": 71587,
+      "corrected": 121379
+    },
+    "interpretation": "Published pretrained weights preserve inference on tested synthetic sequences after this one-line change; they do not establish accuracy gains or independent-layer training in the old checkpoint."
+  }
 }
