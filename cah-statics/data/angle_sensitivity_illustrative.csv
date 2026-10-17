@@ -1,0 +1,8 @@
+assumed_young_angle_deg,predicted_length_drop_um,status
+30,223.9,model prediction with assumed geometry
+35,217.2,model prediction with assumed geometry
+40,209.7,model prediction with assumed geometry
+45,202.1,model prediction with assumed geometry
+50,195,model prediction with assumed geometry
+55,188.4,model prediction with assumed geometry
+60,182.4,model prediction with assumed geometry

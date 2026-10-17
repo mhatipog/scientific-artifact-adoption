@@ -60,3 +60,14 @@ Possible downstream adoption: [TorchGeo request #3618](https://github.com/torchg
 ## Re-run the experiment
 
 For an independent rerun, navigate to [GitHub Actions](https://github.com/mhatipog/scientific-artifact-adoption/actions/workflows/breizhcrops-reproduction.yml), click **Run workflow**, set `run_real_benchmark` to **true**, and select `main`. The full test uses 30 deterministic seeds of the original stochastic evaluation procedure, and uploads JSON evidence only. No scheduled or push triggers remain. The evidence artifact expires after 14 days; the summarized original run is preserved permanently under `evidence/`.
+
+
+## Contact-angle hysteresis: two-front statics (2026)
+
+The independent [CAH reduced-order reproducibility study](cah-statics/README.md)
+extends the 2019 microchannel statics theory to two coupled moving menisci.
+It reproduces an internally checked example and publication-quality
+figures, but **does not yet establish quantitative agreement with the
+published experiments**. Run the self-contained manual/pr-scoped
+[CAH statics Actions workflow](.github/workflows/cah-statics.yml) for the
+outputs. This research is separate from the BreizhCrops artifact adoption.
