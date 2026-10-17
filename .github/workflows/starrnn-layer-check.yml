@@ -1,6 +1,10 @@
 name: StarRNN layer identity check
 
 on:
+  # One requested checkpoint compatibility check; remove after execution.
+  push:
+    paths:
+      - evidence/trigger-starrnn-checkpoint-20261017.txt
   workflow_dispatch:
 permissions:
   contents: read
@@ -77,6 +81,59 @@ jobs:
           }
           pathlib.Path('workflow-results/starrnn-layer-identity.json').write_text(json.dumps(record, indent=2)+'\n')
           print(json.dumps(record, indent=2))
+          PY
+      - name: Check official StarRNN checkpoint on both module structures
+        shell: bash
+        run: |
+          python - <<'PY'
+          import pathlib, importlib.util, torch, urllib.request, io, re, hashlib, json
+          def make_model(path, name):
+              spec = importlib.util.spec_from_file_location(name, path)
+              mod = importlib.util.module_from_spec(spec)
+              spec.loader.exec_module(mod)
+              return mod.StarRNN(input_dim=13, num_classes=9, num_layers=3, hidden_dims=128,
+                                 bidirectional=False, use_batchnorm=False, use_layernorm=True,
+                                 device=torch.device('cpu'))
+          pretrained_file = pathlib.Path('original/breizhcrops/models/pretrained.py').read_text()
+          match = re.search(r'^STARRNN_URL = "([^"]+)"', pretrained_file, re.MULTILINE)
+          assert match, 'No StarRNN URL in original source'
+          url = match.group(1)
+          assert url.startswith('https://breizhcrops.s3.eu-central-1.amazonaws.com/models/eval/StarRNN/')
+          req = urllib.request.Request(url, headers={'User-Agent': 'scientific-reproduction/1.0'})
+          with urllib.request.urlopen(req, timeout=60) as stream:
+              raw = stream.read(30*1024*1024+1)
+          assert len(raw) <= 30*1024*1024, 'Unexpected checkpoint size'
+          checkpoint = torch.load(io.BytesIO(raw), map_location='cpu', weights_only=True)
+          state = checkpoint['model_state']
+          orig = make_model('original/breizhcrops/models/StarRNN.py', 'starrnn_old')
+          fixed = make_model('patched/breizhcrops/models/StarRNN.py', 'starrnn_fixed')
+          orig.load_state_dict(state, strict=True)
+          fixed.load_state_dict(state, strict=True)
+          orig.eval()
+          fixed.eval()
+          torch.manual_seed(11)
+          x = torch.rand(4, 45, 13)
+          with torch.inference_mode():
+              a = orig(x)
+              b = fixed(x)
+          max_delta = float((a-b).abs().max().item())
+          assert max_delta <= 1e-6, f'Unexpected checkpoint prediction mismatch: {max_delta}'
+          assert orig.block[1] is orig.block[2]
+          assert fixed.block[1] is not fixed.block[2]
+          data = {
+              'official_checkpoint_url_from_source': url,
+              'checkpoint_sha256': hashlib.sha256(raw).hexdigest(),
+              'checkpoint_bytes': len(raw),
+              'checkpoint_state_load_original_strict': True,
+              'checkpoint_state_load_independent_layers_strict': True,
+              'same_pretrained_predictions_on_synthetic_inputs': True,
+              'max_abs_log_probability_difference': max_delta,
+              'original_trainable_parameter_count': sum(p.numel() for p in orig.parameters()),
+              'patched_trainable_parameter_count': sum(p.numel() for p in fixed.parameters()),
+              'limitations': 'Confirms one official checkpoint can be loaded and predictions match. Does NOT compare retrained accuracy on real crops.'
+          }
+          pathlib.Path('workflow-results/starrnn-checkpoint.json').write_text(json.dumps(data, indent=2)+'\n')
+          print(json.dumps(data, indent=2))
           PY
       - name: Upload source comparison
         if: always()
