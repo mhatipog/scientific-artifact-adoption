@@ -30,6 +30,8 @@ jobs:
         run: python cah-statics/audit_pore.py
       - name: Check analytical symmetry-breaking classification and regenerate phase diagram
         run: python cah-statics/bifurcation.py
+      - name: Check phase-sensitive isospectral channel counterexample
+        run: python cah-statics/phase_isospectral.py
       - name: Archive reproducible outputs (never claim empirical fit)
         uses: actions/upload-artifact@v4
         with:

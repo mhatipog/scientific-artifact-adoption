@@ -119,3 +119,8 @@ See [Round 2: symmetry breaking and quartic-sign criterion](ROUND2_BIFURCATION.m
 fold/pitchfork competition are already established by Wells et al.
 (*Nature Communications*, 2018) and Bisquert et al. (*Langmuir*, 2024),
 both coauthored by Marc Pradas. See the [explicit prior-art comparison](ROUND2_BIFURCATION.md#critical-novelty-audit--closest-previous-work).
+
+
+## Round 3: isospectral channels
+
+A [phase-sensitive geometric counterexample](ROUND3_ISOSPECTRAL.md) shows that two channels with identical roughness power spectra can have different *local* bifurcation classes. This is a theoretical prediction, **not experimental validation**. Run `python cah-statics/phase_isospectral.py` for the independent checks.
