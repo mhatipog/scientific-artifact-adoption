@@ -79,6 +79,56 @@ measurement, and Gaussian smoothing is not a complete fabrication
 process model. Image blur would not physically alter the bifurcation;
 it would impair inference of the underlying phase.
 
+
+## Exact 3D spectral reduction at neutral plates — next numerical gate
+
+There is a sharper statement than equilibrium extrusion alone. For the
+z-invariant cylindrical meniscus at 90° plates, its Jacobi (second
+variation) operator is separable in planar interface arclength \(s\)
+and the vertical coordinate \(z\):
+
+\[
+\mathcal J=-\partial_s^2-\partial_z^2-\kappa^2.
+\]
+
+The *moving contact lines* impose capillary Robin conditions at the
+extruded sidewalls; their coefficients depend on actual wall curvature
+and Young angle, but not on \(z\). Neutral horizontal plates impose
+Neumann vertical conditions. Thus writing
+\(u(s,z)=\psi_j(s)\cos(n\pi z/d)\) yields exactly
+
+\[
+\boxed{\lambda_{j,n}=\mu_j+(n\pi/d)^2},
+\]
+
+where \(\mu_j\) are eigenvalues of the **unconstrained** planar capillary
+Jacobi operator *including its free-contact-line Robin conditions*.
+
+A fundamental constraint distinction: the fixed *total* liquid-volume
+constraint acts on the \(n=0\) family, but first-order volume variation
+of every \(n\ge1\) vertical mode vanishes automatically. Consequently
+**a stable volume-constrained planar branch is not sufficient by
+itself to prove 3D stability**. The nonuniform modes are all stable
+provided
+
+\[
+\mu_{\min}+(\pi/d)^2>0.
+\]
+
+If \(\mu_{\min}<0\), a sufficient depth threshold is
+\(d<\pi/\sqrt{-\mu_{\min}}\); if \(\mu_{\min}\ge0\) the vertical modes
+are positive at every depth. This applies only under the stated
+idealized geometry/neutral-plate assumptions and is not an assertion
+that the experimental chip satisfies those boundary conditions.
+
+**Not yet numerically evaluated:** \(\mu_{\min}\) with the *correct*
+free-contact-line boundary operator for either isospectral geometry.
+No sign or threshold has been asserted without that computation.
+A mesh-converged 1D Sturm–Liouville calculation of this coefficient is
+the most efficient decisive next task; for non-neutral plates one must
+solve a genuinely 3D equilibrium before applying stability analysis.
+
+
 ## Scientific judgement after Round 4
 
 - **Independent planar YL verification:** strong, but a known elementary
