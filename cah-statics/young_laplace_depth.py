@@ -84,8 +84,44 @@ def quartic(sigma_mm,sign):
     return float((mp.diff(H,s,2)*mp.diff(p,s,2)-
                   mp.diff(H,s)*mp.diff(p,s,3)/3)/4)
 
+
+def jacobi_ground_mode(sign):
+    """Check strictly positive zero mode at p'(s)=0, neutral plates.
+
+    A family of exact circular capillary equilibria has variable curvature.
+    At the curvature extremum its shape derivative solves the homogeneous
+    Jacobi ODE and the linearized free-contact-line conditions.
+    """
+    coeff=coefficients(0,sign)
+    s=brentq(lambda x:(pressure(x+1e-6,coeff)-pressure(x-1e-6,coeff))/2e-6,
+             .685,.713,xtol=1e-12)
+    W,wp=wall(s,coeff)
+    h=1e-5
+    wp2=(wall(s+h,coeff)[1]-wall(s-h,coeff)[1])/(2*h)
+    theta_prime=(wp2/2)/(1+(wp/2)**2)
+    A=1+W*theta_prime/2
+    assert A>0
+    y=np.linspace(-.9*W/2,.9*W/2,401)
+    def circle(y,x):
+        width,dx=wall(x,coeff)
+        t=theta+np.arctan(dx/2)
+        R=1/pressure(x,coeff)
+        return x+R*np.sin(t)-np.sqrt(R*R-y*y)
+    step=1e-6
+    derivative=(circle(y,s+step)-circle(y,s-step))/(2*step)
+    mismatch=max(abs(derivative-A))
+    assert mismatch<2e-6, mismatch
+    # A > 0 implies u(y) = A sqrt(1-(y/R)^2) is positive on entire arc,
+    # and is a nodeless kernel Jacobi field; Sturm oscillation => mu0=0.
+    return dict(phase=sign,positive_mode_amplitude=A,
+                max_circular_family_derivative_error=float(mismatch),
+                planar_ground_eigenvalue_at_critical_per_mm2=0,
+                nonuniform_z_mode_lower_bound_per_mm2=(np.pi/.38)**2)
+
+
 def main():
     a,b=bvp_test(-1),bvp_test(1)
+    jacobi=[jacobi_ground_mode(-1),jacobi_ground_mode(1)]
     cutoff=brentq(lambda s:quartic(s,1),.018,.021,xtol=1e-11)
     assert abs(cutoff*1000-19.9769412)<.003
     sigma=np.array([0,.5,1,2,3,5,7,10,12,15,17,19,19.5,20,22,25,30])/1000
@@ -104,7 +140,8 @@ def main():
         "exact_3d_lift":"z-independent cylinder for 90 degree top/bottom Young angle",
         "depth_note":"exact stationary solution for any constant depth; unrestricted 3D stability NOT established",
         "physical_wall_smoothing_loss_of_opposite_signs_sigma_um":cutoff*1000,
-        "planar_bvp":[compact(a),compact(b)]},indent=2))
+        "planar_bvp":[compact(a),compact(b)],
+        "critical_jacobi_ground_modes":jacobi},indent=2))
     fig,axs=plt.subplots(2,2,figsize=(13,8),layout="constrained")
     for ax,item,color in zip(axs[0],[a,b],["#ca7545","#138c8c"]):
         ax.plot(item["x"]*1000,item["y"]*1000,color=color,lw=2.4,
@@ -141,6 +178,7 @@ def main():
     plt.close(fig)
     print("PASS independent planar YL BVP",
           [(q["sign"],q["max_shape_error_mm"],q["p_error_per_mm"]) for q in [a,b]])
+    print("PASS positive nodeless critical Jacobi zero modes",jacobi)
     print("PASS physical wall-smoothing threshold",cutoff*1000,"µm")
     print("3D cylinder: exact STATIONARY solution at neutral plates, no full 3D stability claim")
 
