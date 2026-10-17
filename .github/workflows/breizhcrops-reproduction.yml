@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       run_real_benchmark:
-        description: "Download original 2017 Belle-Ile data and pretrained Transformer"
+        description: "Download 2017 Belle-Ile data/checkpoint; evaluate 30 independent temporal-sampling seeds"
         required: true
         default: false
         type: boolean
@@ -71,7 +71,7 @@ jobs:
               json.dumps(report, indent=2) + '\n')
           print(json.dumps(report, indent=2))
           PY
-      - name: Evaluate original Belle-Ile data and official checkpoint
+      - name: Evaluate original Belle-Ile data and checkpoint over 30 fixed seeds
         if: inputs.run_real_benchmark
         shell: bash
         run: |
@@ -82,7 +82,7 @@ jobs:
             --weights data/transformer-official.pth \
             --download-official-weights \
             --region belle-ile \
-            --seeds 0 1 2 \
+            --seeds {0..29} \
             --output workflow-results/breizhcrops-real.json
       - name: Upload JSON scientific evidence only
         if: always()
