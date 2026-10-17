@@ -1,0 +1,1 @@
+One-time real pretrained StarRNN checkpoint strict load and inference compatibility check against independent-layer patch.
