@@ -35,6 +35,10 @@ jobs:
         env:
           OMP_NUM_THREADS: "1"
         run: python -m torch.distributed.run --standalone --nproc_per_node=2 pangaea/pinned_regression_check.py --repo /tmp/pangaea-upstream --mode distributed --results /tmp/invariance-two-rank.json
+      - name: Install metric-reference library
+        run: python -m pip install scikit-learn==1.8.0
+      - name: Verify segmentation and multilabel metric semantics on actual source
+        run: python -u pangaea/actual_source_metric_contracts.py --repo /tmp/pangaea-upstream --out /tmp/pangaea-other-metrics.json
       - name: Preserve reproducible numerical proof
         if: always()
         uses: actions/upload-artifact@v4
@@ -44,5 +48,6 @@ jobs:
             /tmp/invariance-single.json
             /tmp/invariance-two-rank.json
             /tmp/pangaea-mse.patch
+            /tmp/pangaea-other-metrics.json
           if-no-files-found: ignore
           retention-days: 60
