@@ -129,3 +129,16 @@ A [phase-sensitive geometric counterexample](ROUND3_ISOSPECTRAL.md) shows that t
 ## Round 4: independent Young–Laplace and finite-depth benchmark
 
 The [Round 4 research note](ROUND4_EXACT_INTERFACES.md) independently solves the planar YL BVP and gives an **exact 3D stationary (not stability) benchmark** for neutral 90° plates. A physical wall-smoothing diagnostic finds a model switch at σ≈19.98 µm; image blur alone does not affect the physical walls. **No experimental quantitative fit yet.**
+
+
+## Round 5: non-neutral three-dimensional capillary surfaces
+
+[Round 5 finite-depth study](round5_3d/ROUND5_3D_NONNEUTRAL.md)
+implements a deformable 3D Young–Laplace surface with top/bottom angles
+of 80°–90°. In the *idealized* isospectral pair, the previous opposite
+local bifurcation classifications survive these non-neutral plate angles,
+and a finite all-parity Galerkin Hessian is positive in the tested states.
+The claimed low-angle (60°–70°) transition is **withdrawn as numerically
+unconverged**. No quantitative experimental jump validation exists yet.
+The [manual/PR-only workflow](../.github/workflows/cah-round5-3d.yml)
+regenerates an evidence figure and runs lightweight benchmarks.
