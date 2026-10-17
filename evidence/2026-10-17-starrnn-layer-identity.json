@@ -1,0 +1,27 @@
+{
+  "original_repo": "dl4sits/BreizhCrops",
+  "upstream_commit": "6de796ed36a457c8520322d6110b8f2862fd8c25",
+  "source_sha256": "46da6b97fc01260cc13cfb0dfc00f0d11ad868087b0b748089124761dd52734e",
+  "comparison_run": "https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39024505845",
+  "artifact_url": "https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39024505845/artifacts/12097159208",
+  "proposed_patch_commit": "https://github.com/mhatipog/BreizhCrops/commit/1b2fb18c26b72e904799951e2434440001cfc439",
+  "verification": "exact original module loaded beside the forked module; only one constructor expression differs",
+  "parameters_test": {
+    "input_dim": 4,
+    "num_classes": 3,
+    "hidden_dims": 8,
+    "num_layers": 3,
+    "dropout": 0
+  },
+  "original": {
+    "layers_1_2_are_same_object": true,
+    "trainable_parameters": 451
+  },
+  "patched": {
+    "layers_1_2_are_same_object": false,
+    "trainable_parameters": 683,
+    "distinct_deep_layers_receive_gradients": true
+  },
+  "interpretation": "Depth>2 in current StarRNN aliases the same StarLayer module repeatedly. Layer repetition uses tied weights and batch-normalization state rather than independent recurrent layers. This is a verified architecture/optimization distinction; no crop-classification score or generalization improvement has yet been demonstrated.",
+  "upstream_status": "NOT submitted as a PR; InceptionTime upstream PR #39 is open"
+}
