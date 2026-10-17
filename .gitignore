@@ -1,0 +1,14 @@
+/data/
+/upstream/
+/weights/
+/workflow-results/
+*.pth
+*.pt
+*.h5
+*.tar.gz
+*.zip
+.venv/
+__pycache__/
+.pytest_cache/
+*.py[cod]
+.ipynb_checkpoints/
