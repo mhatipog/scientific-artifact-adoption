@@ -165,16 +165,17 @@ satisfies
 \lambda_{j,n}\ge (\pi/d)^2>0.
 \]
 For \(d=0.38\) mm this lower bound is approximately
-\(68.34\,\mathrm{mm}^{-2}\), with the Jacobi operator expressed in
+\(68.35\,\mathrm{mm}^{-2}\), with the Jacobi operator expressed in
 physical arclength units. The identical conclusion applies to
 the reflected left meniscus; the two fronts couple only through
 the total-volume constraint, which does not alter the orthogonal
 \(n\ge1\) modes.
 
 **Therefore, for an ideal uniformly extruded channel with neutral
-90° plates, the predicted planar local supercritical/subcritical
-onset is not pre-empted *at its critical state* by an infinitesimal
-vertical instability.** The continuous-versus-subcritical distinction
+90° plates, at this precisely identified planar critical state, there is
+**no simultaneous infinitesimal vertical instability**. This does not
+exclude a separate vertical instability at an earlier volume; that
+requires continuation of the full unconstrained Jacobi spectrum.** The continuous-versus-subcritical distinction
 survives into this rigorously specified 3D capillary problem.
 
 **Limitations:** This is a *local linear stability* statement
