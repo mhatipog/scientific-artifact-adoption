@@ -1,0 +1,36 @@
+name: CAH statics — reproducible figures
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'cah-statics/**'
+      - '.github/workflows/cah-statics.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+          cache-dependency-path: cah-statics/requirements.txt
+      - run: python -m pip install -r cah-statics/requirements.txt
+      - name: Verify internal mathematical consistency
+        run: python cah-statics/tests/test_model.py
+      - name: Regenerate explanatory figures and model table
+        run: python cah-statics/plot.py
+      - name: Reproduce explicitly approximate Yan figure diagnostic
+        run: python cah-statics/audit_pore.py
+      - name: Archive reproducible outputs (never claim empirical fit)
+        uses: actions/upload-artifact@v4
+        with:
+          name: cah-statics-model-only
+          path: cah-statics/outputs/
+          retention-days: 7
