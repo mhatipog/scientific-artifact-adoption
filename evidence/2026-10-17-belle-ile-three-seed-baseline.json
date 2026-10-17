@@ -1,0 +1,45 @@
+{
+  "experiment": "Original pretrained BreizhCrops Transformer on 2017 L1C Belle-Île",
+  "evidence_status": "completed_real_data_experiment; historical single-run threshold missed by one of three stochastic evaluations",
+  "gitHub_run": "https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39020692334",
+  "original_artifact": "https://github.com/mhatipog/scientific-artifact-adoption/actions/runs/39020692334/artifacts/12095779507",
+  "harness_commit": "78c60c365f1ba95ae1f07dd8a6bad7046d45b606",
+  "upstream_commit": "6de796ed36a457c8520322d6110b8f2862fd8c25",
+  "checkpoint_sha256": "6209b63e5763d343e5cc10c14b6bfae51f87ef16ec67f78e50c40b34d083b3af",
+  "dataset_sha256": {
+    "L1C_belle_ile_h5": "cb6958ad7f037262ebfcfa0e551bb494b5ff8fbe25f6ca955dd31cdc62879b3f",
+    "index_csv": "9af0b0183a51e6d29e98cd5363f1fb586560fbee23349e0513564ae2fed33be9",
+    "classmapping_csv": "e850f71da19048a5acd566c8d0c224212dbf0fc5ed597c63bb997edefaec42e9",
+    "codes_csv": "b6c402cc74dceb081d66c722c6eb396ff91a18c5cbe36cf84dcc374e47550030"
+  },
+  "environment": {
+    "python": "3.11.17",
+    "torch": "2.10.0+cpu",
+    "numpy": "2.3.5",
+    "cpu_only": true
+  },
+  "region": "belle-ile",
+  "year": 2017,
+  "level": "L1C",
+  "n": 1049,
+  "historical_single_run_floor": 0.65,
+  "trials": [
+    {
+      "seed": 0,
+      "correct": 689,
+      "accuracy": 0.6568160152526216
+    },
+    {
+      "seed": 1,
+      "correct": 689,
+      "accuracy": 0.6568160152526216
+    },
+    {
+      "seed": 2,
+      "correct": 677,
+      "accuracy": 0.6453765490943756
+    }
+  ],
+  "mean_accuracy": 0.6530028598665396,
+  "note": "This record preserves primary counts and asset hashes from the archived GitHub evidence. Original test enforces a single randomized evaluation >=0.65; our initial harness incorrectly demanded all three seeds pass, so GitHub marked this successfully executed experiment as failed. New 30-seed methodology reports the fraction above threshold, not a claim of fixed deterministic accuracy."
+}
