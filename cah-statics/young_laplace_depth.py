@@ -7,7 +7,7 @@ import csv, json
 from pathlib import Path
 import numpy as np, mpmath as mp
 from scipy.integrate import solve_bvp
-from scipy.optimize import brentq
+from scipy.optimize import brentq, root
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -119,9 +119,55 @@ def jacobi_ground_mode(sign):
                 nonuniform_z_mode_lower_bound_per_mm2=(np.pi/.38)**2)
 
 
+
+def distant_branch_audit():
+    """Show why local supercritical onset does not imply globally jump-free.
+
+    Stable distant equal-volume stationary states are found on *both* phase
+    profiles. This is NOT a dynamical landing rule or experimental match.
+    """
+    from phase_isospectral import PhaseMatchedPlug, quartic as prior_quartic
+    rows=[]
+    for sign in (-1,1):
+        m=PhaseMatchedPlug(sign*.0005)
+        s,b4=prior_quartic(sign*.0005)
+        target=float(m.volume(-s,s))
+        initial=m.symmetric_state(s)
+        baseline=m.energy_area(initial)[0]
+        def residual(z):
+            l,r=z
+            return [float(m.p(l,"left")-m.p(r,"right")),
+                    float(m.volume(l,r)-target)]
+        sol=root(residual,[-.44,.74],tol=1e-11)
+        assert np.linalg.norm(residual(sol.x))<1e-8
+        left,right=sol.x
+        angles=[m.theta(left,"left"),m.theta(right,"right")]
+        state=np.array([left,right,float(angles[0]),float(angles[1])])
+        eigen,res=m.constrained_stability(state)
+        assert min(eigen)>0 and res<1e-7
+        dE=float(m.energy_area(state)[0]-baseline)
+        assert dE<0
+        length_delta=1000*(2*s-(right-left))
+        centre=500*(left+right)
+        # Local onset *class* and distant energy landscape are distinct.
+        rows.append(dict(phase=sign,local_quartic_coefficient=b4,
+                         distant_stable_equilibrium_found=True,
+                         critical_volume_uL=target,
+                         distant_centre_um=float(centre),
+                         distant_length_reduction_um=float(length_delta),
+                         energy_difference_normalized=float(dE),
+                         smallest_constrained_hessian_eigenvalue=float(min(eigen)),
+                         caveat="not a uniquely selected experimental jump"))
+    assert rows[0]["local_quartic_coefficient"]<0
+    assert rows[1]["local_quartic_coefficient"]>0
+    (OUT/"distant_equilibria_not_automatic_jumps.json").write_text(
+        json.dumps(rows,indent=2))
+    return rows
+
 def main():
     a,b=bvp_test(-1),bvp_test(1)
     jacobi=[jacobi_ground_mode(-1),jacobi_ground_mode(1)]
+    landings=distant_branch_audit()
     cutoff=brentq(lambda s:quartic(s,1),.018,.021,xtol=1e-11)
     assert abs(cutoff*1000-19.9769412)<.003
     sigma=np.array([0,.5,1,2,3,5,7,10,12,15,17,19,19.5,20,22,25,30])/1000
@@ -141,7 +187,8 @@ def main():
         "depth_note":"exact stationary solution for any constant depth; unrestricted 3D stability NOT established",
         "physical_wall_smoothing_loss_of_opposite_signs_sigma_um":cutoff*1000,
         "planar_bvp":[compact(a),compact(b)],
-        "critical_jacobi_ground_modes":jacobi},indent=2))
+        "critical_jacobi_ground_modes":jacobi,
+        "distant_stable_stationary_states_both_profiles":landings},indent=2))
     fig,axs=plt.subplots(2,2,figsize=(13,8),layout="constrained")
     for ax,item,color in zip(axs[0],[a,b],["#ca7545","#138c8c"]):
         ax.plot(item["x"]*1000,item["y"]*1000,color=color,lw=2.4,
@@ -178,6 +225,7 @@ def main():
     plt.close(fig)
     print("PASS independent planar YL BVP",
           [(q["sign"],q["max_shape_error_mm"],q["p_error_per_mm"]) for q in [a,b]])
+    print("PASS distant stable states on both profiles; no global no-jump claim",landings)
     print("PASS positive nodeless critical Jacobi zero modes",jacobi)
     print("PASS physical wall-smoothing threshold",cutoff*1000,"µm")
     print("3D cylinder: exact STATIONARY solution at neutral plates, no full 3D stability claim")
