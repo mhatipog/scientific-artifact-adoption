@@ -1,10 +1,6 @@
 name: StarRNN layer identity check
 
 on:
-  # One requested checkpoint compatibility check; remove after execution.
-  push:
-    paths:
-      - evidence/trigger-starrnn-checkpoint-20261017.txt
   workflow_dispatch:
 permissions:
   contents: read
