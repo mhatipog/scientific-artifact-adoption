@@ -22,13 +22,11 @@ ax=fig.add_subplot(grid[0,0])
 for p in [-1,1]:
  lines=ref[0] if p==-1 else ref[1]
  ax.plot([float(r['plate_angle_deg']) for r in lines], [float(r['p3_invmm_per_uL3']) for r in lines],
-         '-o',lw=2.8,color=colors[p],label=('A · minus phase' if p==-1 else 'B · plus phase'))
+         '-o',lw=2.8,color=colors[p],label=('A · subcritical at 80°–90°' if p==-1 else 'B · supercritical at 80°–90°'))
 ax.axhline(0,color='#444',lw=1)
 ax.set(xlim=(79,91),xlabel='Top and bottom Young angle (degrees)',
  ylabel=r'$d^3p/dQ^3$ (mm$^{-1}$/µL$^3$)',
  title='A | Opposite onset classes survive non-neutral plates')
-ax.text(80.3,2800,'Subcritical region: local finite jump possible',color='#a54b3d',fontsize=9)
-ax.text(80.3,-2350,'Supercritical region: local smooth asymmetry',color='#167c8d',fontsize=9)
 ax.legend(frameon=False,loc='upper left')
 ax.grid(alpha=.16)
 
@@ -36,7 +34,7 @@ ax=fig.add_subplot(grid[0,1])
 for p in [-1,1]:
  lines=ref[0] if p==-1 else ref[1]
  ax.plot([float(r['plate_angle_deg']) for r in lines], [float(r['critical_pressure_invmm']) for r in lines],
-         '-o',lw=2.8,color=colors[p],label=('A · minus phase' if p==-1 else 'B · plus phase'))
+         '-o',lw=2.8,color=colors[p],label=('A · subcritical at 80°–90°' if p==-1 else 'B · supercritical at 80°–90°'))
 ax.set(xlim=(79,91),xlabel='Top and bottom Young angle (degrees)',ylabel='Critical mean curvature p = ΔP/γ (mm⁻¹)',
        title='B | Depth wetting strongly shifts capillary pressure')
 ax.grid(alpha=.16)
@@ -58,7 +56,7 @@ ax.axhline(0,lw=.8,color='#777')
 ax.axvspan(59,71,alpha=.08,color='#d88b20')
 ax.set(xlim=(59,91),xlabel='Plate angle (degrees)',ylabel=r'$p^{(3)}(Q_c)$ (×10³)',
        title='C | Low-angle transition is NOT numerically converged')
-ax.text(59.4,2.6,'Grey ×: low-angle results change with resolution',color='#805715',fontsize=9)
+ax.text(60,1.65,'Grey ×: resolution-sensitive; no threshold claimed',color='#805715',fontsize=9)
 ax.grid(alpha=.12)
 
 ax=fig.add_subplot(grid[1,1])
@@ -71,12 +69,12 @@ R,C,angle=r['ref'];w0=1+.05*np.cos(K*.7)+b*(np.cos(2*K*.7)-np.cos(4*K*.7))
 base=C-np.sqrt(R**2-(eta*w0/2)**2)
 shape=np.zeros((len(eta),len(z)))
 for val,(i,j) in zip(r['c'],r['modes']):shape+=val*np.outer(Legendre.basis(2*i)(eta),Legendre.basis(2*j)(z))
-for zz,label in [(0,'mid-depth'),(49,'near top/bottom plate')]:
+for zz,label in [(50,'mid-depth'),(0,'at top/bottom plate')]:
  ax.plot(eta*w0*500,(base+shape[:,zz])*1000,label=label,lw=2)
 ax.plot(eta*w0*500,base*1000,'--',color='#777',label='neutral-plate exact planar arc')
 ax.set(xlabel='Transverse coordinate (µm)',ylabel='Axial interface position (µm)',title='D | Three-dimensional interface deformation, θplate=80°')
 ax.legend(frameon=False,fontsize=8);ax.grid(alpha=.15)
-fig.suptitle('When wetting depth becomes an independent control parameter',fontsize=20,weight='bold')
+fig.suptitle('Four-wall wetting preserves phase-dependent capillary instability',fontsize=20,weight='bold')
 fig.text(.5,-.012,'Research calculations only · prescribed ideal wall profiles, θside=36.5° · NOT calibrated against experiment',
          ha='center',fontsize=10,color='#555')
 fig.savefig(here/'round5_3d_validation.png',dpi=200,bbox_inches='tight')
