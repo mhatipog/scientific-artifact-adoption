@@ -124,3 +124,8 @@ both coauthored by Marc Pradas. See the [explicit prior-art comparison](ROUND2_B
 ## Round 3: isospectral channels
 
 A [phase-sensitive geometric counterexample](ROUND3_ISOSPECTRAL.md) shows that two channels with identical roughness power spectra can have different *local* bifurcation classes. This is a theoretical prediction, **not experimental validation**. Run `python cah-statics/phase_isospectral.py` for the independent checks.
+
+
+## Round 4: independent Young–Laplace and finite-depth benchmark
+
+The [Round 4 research note](ROUND4_EXACT_INTERFACES.md) independently solves the planar YL BVP and gives an **exact 3D stationary (not stability) benchmark** for neutral 90° plates. A physical wall-smoothing diagnostic finds a model switch at σ≈19.98 µm; image blur alone does not affect the physical walls. **No experimental quantitative fit yet.**
