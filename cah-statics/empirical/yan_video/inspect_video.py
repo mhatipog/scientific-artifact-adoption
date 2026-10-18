@@ -90,6 +90,8 @@ def main():
                 raise RuntimeError("Dataset MD5 mismatch")
             report["download"]={"bytes":total,"verified_md5":md5.hexdigest()}
             report["microscopy"]=scan_tiff(path,chosen)
+            from track_video import measure
+            report["optical_filling"]=measure(str(path),chosen)
         report["status"]="original TIFF inspected; derived contact sheet made; synchronization outstanding"
     except Exception as error:
         report["status"]="blocked";report["error"]=repr(error)
