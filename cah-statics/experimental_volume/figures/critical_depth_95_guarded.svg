@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="520" viewBox="0 0 960 520" role="img" aria-label="Lost-pixel-guarded critical thicknesses for five optical masks"><rect width="960" height="520" fill="#ffffff"/>
+<text x="38" y="38" fill="#152139" font-size="23" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="start">95° pore invasion: pump-only depth certificates</text>
+<text x="38" y="67" fill="#586578" font-size="15" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="start">Original frames 4820–4822 versus 4822–4824; each 66.7 ms</text>
+<line x1="90" x2="910" y1="393.00" y2="393.00" stroke="#d7dce4" stroke-width="1"/>
+<text x="78" y="398.0" fill="#5b6676" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="end">0.5</text>
+<line x1="90" x2="910" y1="343.58" y2="343.58" stroke="#d7dce4" stroke-width="1"/>
+<text x="78" y="348.58" fill="#5b6676" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="end">1</text>
+<line x1="90" x2="910" y1="294.16" y2="294.16" stroke="#d7dce4" stroke-width="1"/>
+<text x="78" y="299.16" fill="#5b6676" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="end">2</text>
+<line x1="90" x2="910" y1="228.84" y2="228.84" stroke="#d7dce4" stroke-width="1"/>
+<text x="78" y="233.84" fill="#5b6676" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="end">5</text>
+<line x1="90" x2="910" y1="179.42" y2="179.42" stroke="#d7dce4" stroke-width="1"/>
+<text x="78" y="184.42" fill="#5b6676" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="end">10</text>
+<line x1="90" x2="910" y1="130.00" y2="130.00" stroke="#d7dce4" stroke-width="1"/>
+<text x="78" y="135.0" fill="#5b6676" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="end">20</text>
+<text x="36" y="105" fill="#42516b" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="start">Critical added depth (µm; logarithmic scale)</text>
+<rect x="137" y="305.76" width="31" height="87.24" rx="2" fill="#ce8453"/>
+<text x="152.5" y="298.76" fill="#ce8453" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">1.70</text>
+<rect x="176" y="319.61" width="31" height="73.39" rx="2" fill="#28888d"/>
+<text x="191.5" y="312.61" fill="#28888d" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">1.40</text>
+<text x="167" y="420" fill="#273247" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="middle">100 / 0.4</text>
+<rect x="288" y="319.07" width="31" height="73.93" rx="2" fill="#ce8453"/>
+<text x="303.5" y="312.07" fill="#ce8453" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">1.41</text>
+<rect x="327" y="320.80" width="31" height="72.20" rx="2" fill="#28888d"/>
+<text x="342.5" y="313.8" fill="#28888d" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">1.38</text>
+<text x="318" y="420" fill="#273247" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="middle">180 / 0.4</text>
+<rect x="439" y="212.96" width="31" height="180.04" rx="2" fill="#ce8453"/>
+<text x="454.5" y="205.96" fill="#ce8453" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">6.25</text>
+<rect x="478" y="332.25" width="31" height="60.75" rx="2" fill="#28888d"/>
+<text x="493.5" y="325.25" fill="#28888d" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">1.17</text>
+<text x="469" y="420" fill="#273247" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="middle">180 / 0.5</text>
+<rect x="590" y="157.36" width="31" height="235.64" rx="2" fill="#ce8453"/>
+<text x="605.5" y="150.36" fill="#ce8453" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">13.63</text>
+<rect x="629" y="342.02" width="31" height="50.98" rx="2" fill="#28888d"/>
+<text x="644.5" y="335.02" fill="#28888d" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">1.02</text>
+<text x="620" y="420" fill="#273247" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="middle">180 / 0.6</text>
+<rect x="741" y="156.11" width="31" height="236.89" rx="2" fill="#ce8453"/>
+<text x="756.5" y="149.11" fill="#ce8453" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">13.87</text>
+<rect x="780" y="344.82" width="31" height="48.18" rx="2" fill="#28888d"/>
+<text x="795.5" y="337.82" fill="#28888d" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="bold" text-anchor="middle">0.98</text>
+<text x="771" y="420" fill="#273247" font-size="14" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="middle">260 / 0.6</text>
+<line x1="90" x2="910" y1="294.16" y2="294.16" stroke="#56516d" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="107" y="115" fill="#675d7e" font-size="11" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="start">2 µm is a HYPOTHETICAL incremental-depth target, not measured</text>
+<rect x="90" y="449" width="13" height="13" fill="#ce8453"/>
+<text x="112" y="460" fill="#45556b" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="start">4820–4822: mask reversals up to 10.6%</text>
+<rect x="495" y="449" width="13" height="13" fill="#28888d"/>
+<text x="518" y="460" fill="#45556b" font-size="13" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="start">4822–4824: reversals below 0.16%</text>
+<text x="91" y="493" fill="#677389" font-size="12" font-family="DejaVu Sans,Arial,sans-serif" font-weight="normal" text-anchor="start">Guard credits disappearing pixels with releasing ALL 120 µm; retained-pixel thinning remains unobserved.</text>
+</svg>
