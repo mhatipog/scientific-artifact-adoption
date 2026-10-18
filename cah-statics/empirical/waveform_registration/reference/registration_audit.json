@@ -1,0 +1,39 @@
+{
+  "source": "Yan et al. (2025), Figure 5 and DaRUS-4683 original FISO recordings",
+  "paper_pdf_sha256": "c37e756c2d07afa5a89d52a7f6d04d95276ac7f593fb0ae04de53938a707ebca",
+  "method": "Digitize published blue pressure plot; optimize horizontal shift over full original 62.5 Hz pressure trace; no gain or pressure-offset fit",
+  "model_parameter_fitted": false,
+  "video_camera_clock_confirmed": false,
+  "matches": [
+    {
+      "angle_deg": 60,
+      "matching_time_origin_sensor_s": 361.5899398432048,
+      "rms_waveform_disagreement_kPa": 0.009286304274644443,
+      "next_separate_candidate": [
+        880.75,
+        0.08739726262933163
+      ],
+      "original_sensor_md5": "0195179b60d77f242b48de27a0e5b07d"
+    },
+    {
+      "angle_deg": 95,
+      "matching_time_origin_sensor_s": 244.33244717967193,
+      "rms_waveform_disagreement_kPa": 0.013705828548026735,
+      "next_separate_candidate": [
+        10.75,
+        0.8639578225947715
+      ],
+      "original_sensor_md5": "cde4da5db493777c36dcb89521100d04"
+    },
+    {
+      "angle_deg": 120,
+      "matching_time_origin_sensor_s": 161.13110603556902,
+      "rms_waveform_disagreement_kPa": 0.01499083344106959,
+      "next_separate_candidate": [
+        191,
+        0.09668194798688422
+      ],
+      "original_sensor_md5": "f11ecd59e0058cb49328a504a23db7f5"
+    }
+  ]
+}
