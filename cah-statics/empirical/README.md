@@ -95,3 +95,8 @@ All reproducible calculations and unaltered-source citations are in
 the repository. The manual/PR-only workflow downloads three pressure
 files on an ephemeral runner, exports small summaries/decimated figures,
 and does not schedule ongoing downloads or commit raw datasets.
+
+
+## Round 7: nominal Yan pore entry and raw pressure alignment
+
+See [Round 7 numerical baseline and explicit non-agreement](ROUND7_YAN_FORWARD.md). The ideal 20-µm entrance model is a *reduced pressure closure*, not a full 3D simulation or a fitted experimental match. The manual/PR Actions also index the original 30-fps TIFF frame ranges without downloading them.
