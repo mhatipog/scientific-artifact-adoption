@@ -18,11 +18,18 @@ import matplotlib.pyplot as plt
 
 HERE=Path(__file__).resolve().parent
 OUT=HERE/"outputs"
-ORIGINAL=np.asarray(Image.open(OUT/"published_fig4_source_page.png").convert("RGB"),dtype=np.int16)
-REGISTER=json.loads((OUT/"registration_audit.json").read_text())
+ORIGINAL=(np.asarray(Image.open(OUT/"published_fig4_source_page.png").convert("RGB"),dtype=np.int16)
+          if (OUT/"published_fig4_source_page.png").exists() else None)
+REGISTER=json.loads((OUT/"registration_audit.json").read_text()
+       if (OUT/"registration_audit.json").exists() else
+       (HERE/"reference"/"registration_audit.json").read_text())
 CLOCK={r["angle_deg"]:r["matching_time_origin_sensor_s"] for r in REGISTER["matches"]}
 
 def publication_saturation(deg):
+    offline=HERE/"reference"/f"fig4_{deg}deg_digitized.csv"
+    if ORIGINAL is None:
+        a=np.genfromtxt(offline,delimiter=",",skip_header=1)
+        return a[:,0],a[:,1]
     x1,y1,x2,y2=114,124,360,323
     c=ORIGINAL[y1:y2,x1:x2]
     if deg==60:
@@ -63,8 +70,11 @@ def main():
                 q=minimize_scalar(lambda dt:np.mean((score-pred(dt,base,final))**2),
                      bounds=(-.6,.6),method="bounded")
                 shifts.append(float(q.x))
-        paper_pressure=np.genfromtxt(OUT/f"figure5_{deg}deg_digitized.csv",
-                                    delimiter=",",skip_header=1)
+        paper_pressure=np.genfromtxt(
+            (OUT/f"figure5_{deg}deg_digitized.csv") if
+            (OUT/f"figure5_{deg}deg_digitized.csv").exists() else
+            (HERE/"reference"/f"fig5_{deg}deg_matched_fiso.csv"),
+            delimiter=",",skip_header=1)
         tp,p=paper_pressure[:,0],paper_pressure[:,2] # real sensor pressure, figure-aligned
         dpdt=np.gradient(gaussian_filter1d(p,.20/np.median(np.diff(tp))),tp)
         valid=(tp>=4)&(tp<=(9.8 if deg==60 else 8.2))
