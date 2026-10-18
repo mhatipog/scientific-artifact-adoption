@@ -47,7 +47,7 @@ def main():
  from PIL import Image
  r=Remote()
  report={"status":"started","file_id":351438,"source_bytes":SIZE,
-  "requested_indices":[0,1,5,10,20,30,50,75,100,150,200,250,320,340,360,657],
+  "requested_indices":[0,100,150,190,200,205,210,215,220,225,230,235,240,245,250,260,320,340,360,657],
   "warning":"video and pressure logger time origins UNVERIFIED"}
  try:
   with tifffile.TiffFile(r) as tf:
@@ -69,7 +69,9 @@ def main():
       "shape":list(f.shape),"dtype":str(f.dtype),"png":name,
       "pore_median_raw":float(np.median(inside)),
       "background_median_raw":float(np.median(background)),
-      "pore_to_background_ratio":float(np.median(inside)/(np.median(background)+1e-12))})
+      "pore_to_background_ratio":float(np.median(inside)/(np.median(background)+1e-12)),
+      "dark_area_proxy_threshold_2970":float(np.mean(inside<2970)),
+      "raw_intensity_threshold_explanation":"2970 is midpoint of source first/filled centre intensity, chosen without pressure data"})
   report["status"]="success_sparse_frames"
  except Exception as e:
   report["status"]="blocked_sparse_access";report["error"]=repr(e)[:600]
