@@ -174,3 +174,8 @@ The [Round 9 energy report](ROUND9_SINGULAR_ENERGY_LIMIT.md) independently deriv
 ## Round 10: physically testable full-equilibrium two-stage instability
 
 The [Round 10 scientific audit](ROUND10_TRUE_BIFURCATION_SEQUENCE.md) distinguishes genuine two-meniscus pressure-balanced constrained-Hessian saddles from **spurious extrema** created by a singular Young-angle-only volume elimination. The fabrication-scale ±0.4 µm pair predicts different *local* pathways: subcritical onset versus a stable asymmetric branch followed by a second fold **2.595 nL** later at **23.60 µm** centre shift. A physically meaningful index-one saddle barrier is expressed in illustrative pJ, with no claims of a selected experimental jump. Reproduce using [the full 4-DOF validator](round10_full_equilibria.py).
+
+
+## Round 10b: quantified energy barrier and saddle-node scaling
+
+The [secondary-fold energy addendum](ROUND10_SECONDARY_FOLD_BARRIER.md) independently checks the **genuine full-equilibrium index-one saddle**, the 2.595351 nL local continuous-branch interval, and the universal saddle-node barrier exponent **1.50009**, using a full constrained Hessian rather than a one-coordinate apparent energy minimum. The illustrative barrier at the symmetric onset is 6.9799 pJ, **not a measured value or a globally established minimum transition barrier**. [Reproduce the near-fold scaling](round10_fold_barrier_scaling.py).
