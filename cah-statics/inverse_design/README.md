@@ -2,7 +2,7 @@
 
 This is a **theoretical inverse-design audit** in the existing contact-angle hysteresis programme. It is **not** part of the experimental Yan image-volume reconstruction. The latter remains separately documented in draft research PR #14.
 
-- [Full scientific note: mathematical, numerical and novelty qualifications](../ROUND14_GUARDED_PHASE_PAIR.md)
+- [Full scientific note: mathematical, numerical and novelty qualifications](ROUND14_GUARDED_PHASE_PAIR.md)
 - [Independent analytic-derivative + fold/root/uncertainty executable](phase_pair_window.py)
 - [Eight zero-network unit tests](tests/test_phase_pair_window.py)
 - [Frozen nominal and stress summary](derived/guarded_pair_summary.json)
@@ -24,13 +24,13 @@ No workflow is installed or dispatched. No experimental media are included. This
 
 ## Exact single-front pressure–volume bridge (Round 15)
 
-The [Round-15 theorem, proof, numerical cross-check and conditional pressure-noise certificate](../ROUND15_SINGLE_FRONT_BRIDGE.md) show that at a stationary pressure, within this reduced two-front model,
+The [Round-15 independent rederivation, numerical cross-check and conditional pressure-noise certificate](../ROUND15_SINGLE_FRONT_BRIDGE.md) show that at a stationary pressure, within this reduced two-front model,
 
 \[
 B_4=-[H'(s_c)]^4\,P'''(Q_c)/12,\qquad Q=H(s),\;P(Q)=p(s).
 \]
 
-This eliminates explicit \(H''\) dependence **exactly**. The sign of the single-front *third pressure–volume derivative* fixes the reduced local two-front quartic class if the other modes are stable. A [pure-standard-library implementation](pressure_volume_bridge.py) checks the chain rule and provides a conservative four-pressure-point sign bound, with [five zero-network regression tests](tests/test_pressure_volume_bridge.py). No independent calibrated \(P(Q)\) data, nonneutral 3D proof or physical snap prediction is claimed.
+The identity was already documented in [the earlier unmerged pressure-volume transfer note](https://github.com/mhatipog/scientific-artifact-adoption/blob/research/cah-phase-volume-transfer-20261018/cah-statics/theory/PRESSURE_VOLUME_TRANSFER.md); this round contributes a separate implementation, the more resolvable geometry cross-check and the conditional measurement-error bound. This eliminates explicit \(H''\) dependence **exactly**. The sign of the single-front *third pressure–volume derivative* fixes the reduced local two-front quartic class if the other modes are stable. A [pure-standard-library implementation](pressure_volume_bridge.py) checks the chain rule and provides a conservative four-pressure-point sign bound, with [five zero-network regression tests](tests/test_pressure_volume_bridge.py). No independent calibrated \(P(Q)\) data, nonneutral 3D proof or physical snap prediction is claimed.
 
 Run offline:
 
