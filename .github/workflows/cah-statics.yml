@@ -44,6 +44,8 @@ jobs:
         run: python cah-statics/young_laplace_depth.py
       - name: Test linearized three-dimensional plate and corner wetting constraints
         run: python cah-statics/plate_corner_response.py
+      - name: Verify sixth-order phase-only roughness counterexample
+        run: python cah-statics/spectrum_phase_sixthorder.py
       - name: Archive reproducible outputs (never claim empirical fit)
         uses: actions/upload-artifact@v4
         with:
