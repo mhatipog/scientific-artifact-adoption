@@ -20,10 +20,15 @@ jobs:
         run: python cah-statics/empirical/audit_darus.py
       - name: Produce annotated SVG from measured pressure recordings
         run: python cah-statics/empirical/plot_pressure_svg.py
+      - name: Predict nominal rounded-corner pressure barrier (no fitting)
+        run: python cah-statics/empirical/yan_entry_forward.py
+      - name: Index Q1 video frame ranges, without downloading TIFFs
+        run: python cah-statics/empirical/yan_video_index.py
       - uses: actions/upload-artifact@v4
         with:
           name: cah-independent-pressure-data-audit
           path: |
             cah-statics/empirical/outputs/empirical/darus_lowflow_pressure_audit.json
             cah-statics/empirical/outputs/empirical/measured_pressure_traces.svg
+            cah-statics/empirical/outputs/empirical/yan_*
           retention-days: 7
