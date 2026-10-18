@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="465" viewBox="0 0 760 465">
+<rect width="760" height="465" fill="#ffffff"/>
+<text x="66" y="34" font-size="20" font-family="sans-serif" fill="#172c3c">Neutral-plate wetting susceptibility: two independent methods</text>
+<text x="66" y="55" font-size="12" font-family="sans-serif" fill="#536573">Exact Jacobi series versus volume-constrained P1 finite elements; model at assumed sidewall angle 32°</text>
+<line x1="98" y1="362" x2="680" y2="362" stroke="#263746" stroke-width="1.5"/>
+<line x1="98" y1="86" x2="98" y2="362" stroke="#263746" stroke-width="1.5"/>
+<line x1="98" y1="142.00" x2="680" y2="142.00" stroke="#d8e3e7" stroke-dasharray="4 6"/>
+<text x="83" y="146.00" text-anchor="end" font-size="13" font-family="sans-serif" fill="#36546a">10⁻³</text>
+<line x1="98" y1="252.00" x2="680" y2="252.00" stroke="#d8e3e7" stroke-dasharray="4 6"/>
+<text x="83" y="256.00" text-anchor="end" font-size="13" font-family="sans-serif" fill="#36546a">10⁻⁴</text>
+<line x1="98" y1="362.00" x2="680" y2="362.00" stroke="#d8e3e7" stroke-dasharray="4 6"/>
+<text x="83" y="366.00" text-anchor="end" font-size="13" font-family="sans-serif" fill="#36546a">10⁻⁵</text>
+<line x1="130" y1="362" x2="130" y2="367" stroke="#263746"/>
+<text x="130" y="386" text-anchor="middle" font-size="13" font-family="sans-serif" fill="#36546a">16</text>
+<line x1="290" y1="362" x2="290" y2="367" stroke="#263746"/>
+<text x="290" y="386" text-anchor="middle" font-size="13" font-family="sans-serif" fill="#36546a">32</text>
+<line x1="450" y1="362" x2="450" y2="367" stroke="#263746"/>
+<text x="450" y="386" text-anchor="middle" font-size="13" font-family="sans-serif" fill="#36546a">64</text>
+<line x1="610" y1="362" x2="610" y2="367" stroke="#263746"/>
+<text x="610" y="386" text-anchor="middle" font-size="13" font-family="sans-serif" fill="#36546a">128</text>
+<polyline points="130.0,121.85 290.0,187.62 450.0,253.66 610.0,319.81" fill="none" stroke="#bd5634" stroke-width="2.5"/>
+<circle cx="130" cy="121.85" r="4.2" fill="#bd5634" stroke="#fff" stroke-width="1"/>
+<circle cx="290" cy="187.62" r="4.2" fill="#bd5634" stroke="#fff" stroke-width="1"/>
+<circle cx="450" cy="253.66" r="4.2" fill="#bd5634" stroke="#fff" stroke-width="1"/>
+<circle cx="610" cy="319.81" r="4.2" fill="#bd5634" stroke="#fff" stroke-width="1"/>
+<line x1="130" y1="410" x2="156" y2="410" stroke="#bd5634" stroke-width="3"/>
+<text x="166" y="414" font-size="13" font-family="sans-serif" fill="#253e50">− phase: Q = -0.0873159482 mm²</text>
+<polyline points="130.0,124.51 290.0,190.43 450.0,256.53 610.0,322.72" fill="none" stroke="#247a96" stroke-width="2.5"/>
+<circle cx="130" cy="124.51" r="4.2" fill="#247a96" stroke="#fff" stroke-width="1"/>
+<circle cx="290" cy="190.43" r="4.2" fill="#247a96" stroke="#fff" stroke-width="1"/>
+<circle cx="450" cy="256.53" r="4.2" fill="#247a96" stroke="#fff" stroke-width="1"/>
+<circle cx="610" cy="322.72" r="4.2" fill="#247a96" stroke="#fff" stroke-width="1"/>
+<line x1="430" y1="410" x2="456" y2="410" stroke="#247a96" stroke-width="3"/>
+<text x="466" y="414" font-size="13" font-family="sans-serif" fill="#253e50">+ phase: Q = -0.0851924444 mm²</text>
+<text x="393" y="452" text-anchor="middle" font-size="14" font-family="sans-serif" fill="#263746">Number of planar P1 elements (z elements = half as many)</text>
+<text x="22" y="224" transform="rotate(-90 22 224)" text-anchor="middle" font-size="14" font-family="sans-serif" fill="#263746">Absolute energy-coefficient error (mm²)</text>
+<text x="485" y="91" font-size="13" font-family="sans-serif" fill="#5b7180">≈ 4× error reduction per refinement</text>
+</svg>
