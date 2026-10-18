@@ -7,7 +7,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from urllib.request import Request,urlopen
 from urllib.parse import quote
-import json,re,hashlib,sys
+import json,re,hashlib,sys,os
 import numpy as np
 import tifffile
 import matplotlib
@@ -72,7 +72,9 @@ def main():
         print("TIFF_OPTIONS",json.dumps(options),flush=True)
         feasible=[q for q in options if q["bytes"]<LIMIT]
         if not feasible:raise RuntimeError("No Q1 water-air TIFF under safe 430 MB download cap")
-        chosen=next((q for q in feasible if q["filename"].startswith("95_Q1_")),feasible[0])
+        target=os.environ.get("CAH_VIDEO_ANGLE","60")
+        chosen=next((q for q in feasible if q["filename"].startswith(target+"_Q1_")),None)
+        if chosen is None:raise RuntimeError("Requested experiment not present in available TIFF options")
         report["chosen"]=chosen
         with TemporaryDirectory(prefix="cah-yan-video-") as td:
             path=Path(td)/chosen["filename"]
