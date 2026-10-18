@@ -27,9 +27,11 @@ jobs:
       - name: Check bounded TIFF byte-range access (no video download)
         run: python cah-statics/empirical/yan_tiff_range_probe.py
       - name: Install limited image decoding dependencies
-        run: pip install 'numpy>=1.26,<3' 'tifffile>=2024.7' 'pillow>=10,<13'
+        run: pip install 'numpy>=1.26,<3' 'tifffile>=2024.7' 'pillow>=10,<13' 'scipy>=1.12,<2' 'matplotlib>=3.8,<4' 'opencv-python-headless>=4.10,<5'
       - name: Read selected 120-degree video frames only via HTTP ranges
         run: python cah-statics/empirical/yan_sparse_frames.py
+      - name: Independent microscope curvature vs sensor cross-modal diagnostic
+        run: python cah-statics/empirical/yan_crossmodal.py
       - uses: actions/upload-artifact@v4
         with:
           name: cah-independent-pressure-data-audit
