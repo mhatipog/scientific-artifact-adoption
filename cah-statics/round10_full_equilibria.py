@@ -23,9 +23,9 @@ WIDTH=1.;PERIOD=.3;AMP=.05;BH=.0004;DEPTH=.38
 SURFACE_TENSION=.072 # Illustrative N/m, not independently measured
 
 class PhasePlug(PlugModel):
-    def __init__(self,phase,theta_deg=36.5):
+    def __init__(self,phase,theta_deg=36.5,higher_harmonic_mm=BH):
         self.phase=phase
-        self.b=phase*BH
+        self.b=phase*higher_harmonic_mm
         super().__init__(theta_deg=theta_deg,width_mm=WIDTH,
                          amplitude_mm=AMP,period_mm=PERIOD,depth_mm=DEPTH)
     def w(self,x):
@@ -128,6 +128,26 @@ def main():
     with (OUT/"round10_wetting_sensitivity.csv").open("w",newline="") as f:
         writer=csv.DictWriter(f,fieldnames=list(sens[0]))
         writer.writeheader();writer.writerows(sens)
+    # Controlled fabrication-amplitude sensitivity at the same intrinsic angle.
+    fabrication=[]
+    for b_um in (.30,.35,.40,.45,.50,.60):
+        mm=b_um/1000
+        ma=PhasePlug(-1,36.5,higher_harmonic_mm=mm)
+        mb=PhasePlug(1,36.5,higher_harmonic_mm=mm)
+        _,va=ma.critical()
+        _,vb=mb.critical()
+        vf,fstate=mb.secondary_fold()
+        window=1000*(vb-vf)
+        assert 1.5<window<4 and 19<fstate["c_um"]<27
+        fabrication.append(dict(harmonic_amplitude_um=b_um,
+            phase_A_onset_uL=va,phase_B_onset_uL=vb,
+            phase_B_secondary_fold_uL=vf,
+            phase_B_continuous_window_nL=window,
+            fold_center_um=fstate["c_um"],
+            fold_B_minus_A_onset_nL=1000*(vf-va)))
+    with (OUT/"round10_amplitude_sensitivity.csv").open("w",newline="") as f:
+        writer=csv.DictWriter(f,fieldnames=list(fabrication[0]))
+        writer.writeheader();writer.writerows(fabrication)
     mA=PhasePlug(-1);mB=PhasePlug(1)
     sA,VA=mA.critical();sB,VB=mB.critical()
     VF,fold=mB.secondary_fold()
@@ -176,7 +196,8 @@ def main():
           pressure_mismatch_inverse_mm=pdiff,
           Hprime_one_contact=Hprime,
           explanation="E'_Young=0 due to H'=0, but p_left != p_right"),
-       wetting_sensitivity=sens)
+       wetting_sensitivity=sens,
+       fabrication_amplitude_sensitivity=fabrication)
     (OUT/"round10_full_equilibria.json").write_text(json.dumps(output,indent=2))
     branches=[]
     for sign,model in ((-1,mA),(1,mB)):
@@ -218,6 +239,21 @@ def main():
                  fontweight="bold",fontsize=15)
     fig.savefig(OUT/"round10_verified_branches.png",dpi=175)
     fig.savefig(OUT/"round10_verified_branches.svg")
+    fig,axes=plt.subplots(1,2,figsize=(10,4.1),layout="constrained")
+    bxs=[q["harmonic_amplitude_um"] for q in fabrication]
+    axes[0].plot(bxs,[q["phase_B_continuous_window_nL"] for q in fabrication],
+                "o-",lw=2.4,color="#148d97")
+    axes[0].set(ylabel="Continuous-branch interval (nL)")
+    axes[1].plot(bxs,[q["fold_center_um"] for q in fabrication],
+                 "D-",lw=2.4,color="#bd7544")
+    axes[1].set(ylabel="Secondary-fold centre shift (µm)")
+    for axis in axes:
+        axis.set(xlabel="Higher-harmonic correction magnitude (µm)")
+        axis.grid(alpha=.18)
+    fig.suptitle("Controlled fabrication-amplitude sensitivity at θY=36.5°",
+                 fontsize=14,weight="bold")
+    fig.savefig(OUT/"round10_amplitude_sensitivity.png",dpi=170)
+    plt.close(fig)
     print("PASS full 4-DOF constrained Hessians, equal pressure, true saddles")
     print("PASS finite-volume second asymmetric fold",VF,fold["c_um"])
     print("PASS false stationary state rejected (pressure difference)",pdiff)
