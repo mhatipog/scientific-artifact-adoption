@@ -1,0 +1,40 @@
+{
+  "model_scope": "planar local + exact neutral-plate cylinders ONLY",
+  "correlation_orders_exact": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "sixth_order_can_distinguish": true,
+  "nominal_b_um": 0.17,
+  "nominal_theta_deg": 32,
+  "max_pair_width_difference_um": 0.65746573466062,
+  "nominal": {
+    "ok": true,
+    "roots_minus": 1,
+    "roots_plus": 1,
+    "s_minus_mm": 0.7039537628915958,
+    "s_plus_mm": 0.7088690566135175,
+    "B4_minus": -2413.486980993566,
+    "B4_plus": 3605.9306784584574,
+    "p2_minus": -226.97300805605323,
+    "p2_plus": -114.76292040451695,
+    "jacobi_minus": 4.154264805930907,
+    "jacobi_plus": 3.099351669599238,
+    "clearance_minus_mm": 0.0010101537227411028,
+    "clearance_plus_mm": 0.0007501583722587801
+  },
+  "stress_points": 405,
+  "min_B4_margin": 239.86861036445453,
+  "min_negative_p2_margin": 43.54918483917016,
+  "min_jacobi_amplitude": 2.741832186873971,
+  "min_sampled_clearance_mm": 0.0006654132225481502,
+  "worst_corner_fold_creation": {
+    "x_mm": 0.7028342970833779,
+    "b_mm": 0.00024199138617722745,
+    "residual_norm": 1.4566133015204654e-11
+  },
+  "positive_amplitude_headroom_nm": 37.991386177227454
+}
