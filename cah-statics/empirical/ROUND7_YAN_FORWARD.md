@@ -121,3 +121,26 @@ and advancing angles would inflate credibility rather than add it.
 \`python cah-statics/empirical/yan_video_index.py\`
 
 Only small reports, CSV and SVG are archived; no raw TIFF.
+
+
+## Discovered Q1 video filenames: frame-index ≠ logger time
+
+Archive metadata-only inspection recovers:
+- 60°: \`60_Q1_water_air_3330-3710_TD.tif\` (frames 3330–3710).
+- 95° in the article: **\`90_Q1_water_air_15006-19853_TD.tif\`**.
+  This nominal **90 versus 95** discrepancy needs clarification;
+  the archive filename must not automatically be renamed to 95°.
+- 120°: \`120_Q1_water_air_4700-5357_TD.tif\`.
+
+At 30 frames/s, the middle video's absolute frame indexes imply
+500–662 seconds from *the camera's* presumed zero, yet the 95° pressure
+recording lasts only 285 seconds. Therefore **camera frame numbering
+and pressure logger elapsed seconds do NOT share a proven time origin**.
+An offset/synchronization event is essential. The 120° video window
+156.7–178.6 s happens to include the 168 s pressure candidate, but
+this numerical correspondence is NOT proof of the shared clock.
+
+\`yan_tiff_range_probe.py\` tries to determine whether the 329MB
+120° video can be accessed via safe HTTP byte ranges, without
+downloading any large image. If range access is unavailable, stop
+and request/source a tiny authorized clip for real image-based alignment.
