@@ -35,8 +35,8 @@ def accounting(added_px: int, lost_px: int, elapsed_s: float,
 
     Added pixels are initially BELOW the optical threshold. For the
     lower-bound redistribution result, incremental_depth_um must mean
-    an independently verified MINIMUM INCREASE in actual water-column
-    thickness on all newly positive pixels, not their final thickness.
+    an independently verified LOWER BOUND on the AREA-AVERAGE increase
+    in actual water-column thickness over newly positive pixels, not their final thickness.
 
     Lost positive pixels may release up to max_depth_um in total; other
     releases (unchanged-positive pixels, optical subthreshold liquid,
@@ -56,7 +56,7 @@ def accounting(added_px: int, lost_px: int, elapsed_s: float,
     loss_credit_ul = lost_mm2 * max_depth_um / 1000
     guarded_um = 1000 * (pump_ul + loss_credit_ul) / added_mm2
     # Unseen redistribution needed IF the prescribed incremental depth
-    # really holds on EVERY newly positive pixel (no device attribution).
+    # is a certified lower bound on the newly positive area average (no device attribution).
     min_redistribution_ul = max(
         0.0, added_mm2 * incremental_depth_um / 1000
         - pump_ul - loss_credit_ul)
