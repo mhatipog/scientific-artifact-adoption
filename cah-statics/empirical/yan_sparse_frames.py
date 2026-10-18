@@ -41,7 +41,7 @@ class Remote(io.RawIOBase):
   if self.calls%100==0:print("REMOTE RANGE PROGRESS",self.calls,self.bytes,flush=True)
   self.cache_offset=self.pos;self.cache=dat;self.pos+=n;return dat[:n]
  def readinto(self,b):
-  v=self.read(len(b));b[:len(v)]=v;return len(v)
+  view=memoryview(b).cast('B');v=self.read(view.nbytes);view[:len(v)]=v;return len(v)
 def main():
  import numpy as np,tifffile
  from PIL import Image
