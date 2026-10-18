@@ -50,6 +50,8 @@ jobs:
         run: python cah-statics/arbitrary_order_capillary_theorem.py
       - name: Verify exact sixth-order constrained energy and singular crossover
         run: python cah-statics/singular_limit_energy.py
+      - name: Validate full 4-DOF capillary saddles and secondary bifurcation fold
+        run: python cah-statics/round10_full_equilibria.py
       - name: Archive reproducible outputs (never claim empirical fit)
         uses: actions/upload-artifact@v4
         with:
