@@ -125,6 +125,70 @@ Increasing geometric correction is **not monotonic** in
 robustness to wetting uncertainty. The 1 µm case has a much narrower
 allowed Young-angle window despite a larger physical difference.
 
+## General finite-order correlation-invisibility lemma
+
+The 5/7 example belongs to a larger construction. For any integer
+\(N\ge2\), take an **odd integer \(M>2N\)** and construct
+
+\[
+w_\pm(x)=w_0+a\cos(kx)
+ \pm b[\cos(Mkx)-\cos((M+2)kx)].
+\]
+
+**Claim (proved for the Fourier statistics):** every
+translation-invariant \(n\)-point correlation function with
+\(1\le n\le N\) is identical for \(w_+\) and \(w_-\),
+provided the shapes are analyzed as periodic functions of the
+same fundamental period.
+
+**Elementary proof.** A Fourier coefficient occurs only at signed
+wavenumbers \(\pm1,\pm M,\pm(M+2)\).
+A nonzero term in an \(n\)-point correlation requires a
+zero-sum frequency tuple. A product changes sign under
+\(b\mapsto-b\) only if it contains an odd number \(r\ge1\)
+of high-harmonic factors. The signed high-frequency sum then
+has magnitude at least \(M-2r\), because the net coefficient
+of the odd-frequency center \(M\) is odd and nonzero.
+The \(n-r\) fundamental factors can contribute at most
+\(n-r\) in magnitude. But \(M>2N\ge n+r\), hence
+\(M-2r>n-r\) and cancellation is impossible.
+Thus every zero-frequency product contains an even number
+of high harmonics. QED.
+
+The exact maximum/minimum widths are also preserved when
+\(b<a/[4(M+1)]\): use
+\(|\cos(Mu)-\cos((M+2)u)|
+=2|\sin((M+1)u)\sin u|
+\le2(M+1)\sin^2u\)
+and compare the base-cosine deficit from its extrema.
+
+**What this lemma does NOT prove:** It does not, by itself,
+establish that the local bifurcation *always* reverses for
+every \(N\). That requires a separate nonzero sensitivity
+condition for the fourth-order capillary coefficient; high
+derivatives strongly amplify high wavenumbers, but competing
+critical roots or loss of physical admissibility can intervene.
+
+### A higher-order numerical illustration
+
+For \(N=7\), choose \(M=15>14\) and
+\(b=0.046875/M^4\) mm, equivalent to
+\(b\approx0.92593\) **nm**. At the unperturbed critical
+angle \(\theta_Y=37.14514644^\circ\), direct high-precision
+derivatives and single critical-root isolation produce
+\(B_{4,-}\approx-932.54\) and \(B_{4,+}\approx+866.50\).
+The lemma guarantees exact equality of correlations **through
+seventh order**. We have not checked the nonlinear 3D menisci
+or global dynamics in this constructed case.
+
+These nanometre perturbations are clearly beyond what we
+would responsibly treat as a validated continuum microfluidics
+fabrication prediction. The point is a **mathematical
+identifiability limitation**, potentially generalizable to a
+rigorous theorem with independently established capillary
+nondegeneracy assumptions.
+
+
 ## Priority and prior art
 
 The strongest immediate next tasks, in order, are:
