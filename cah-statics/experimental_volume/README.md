@@ -6,8 +6,9 @@ The source paper and raw experimental TIFFs are [Yan et al., JCIS 2025](https://
 - [Vector figure comparing published saturation and our independent masks](figures/phase_saturation_vs_published.svg)
 - Derived lightweight trajectories: derived/segmented_saturation_10hz.csv and frozen 30-Hz crossing summaries in derived/measurements.json.
 
-Reproduce **offline** with Python 3.11+ and numpy, scipy, Pillow:
+Reproduce **offline** with Python 3.11+:
 
+    python -m pip install -r requirements.txt
     python tests/test_phase_mask.py
     python plot_comparison.py
 
