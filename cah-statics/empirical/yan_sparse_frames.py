@@ -47,7 +47,7 @@ def main():
  from PIL import Image
  r=Remote()
  report={"status":"started","file_id":351438,"source_bytes":SIZE,
-  "requested_indices":[0,320,340,360,657],
+  "requested_indices":[0,1,5,10,20,30,50,75,100,150,200,250,320,340,360,657],
   "warning":"video and pressure logger time origins UNVERIFIED"}
  try:
   with tifffile.TiffFile(r) as tf:
@@ -62,9 +62,14 @@ def main():
     p=OUT/"yan_frames";p.mkdir(exist_ok=True)
     name=f"120_Q1_{index:03d}_frame_{4700+index}.png"
     Image.fromarray(g).resize((512,512)).save(p/name,optimize=True)
+    inside=f[115:290,120:280].astype(float)
+    background=f[365:435,200:330].astype(float)
     report.setdefault("frames",[]).append({"index":index,"original_frame":4700+index,
       "hypothetical_camera_elapsed_s":(4700+index)/30,
-      "shape":list(f.shape),"dtype":str(f.dtype),"png":name})
+      "shape":list(f.shape),"dtype":str(f.dtype),"png":name,
+      "pore_median_raw":float(np.median(inside)),
+      "background_median_raw":float(np.median(background)),
+      "pore_to_background_ratio":float(np.median(inside)/(np.median(background)+1e-12))})
   report["status"]="success_sparse_frames"
  except Exception as e:
   report["status"]="blocked_sparse_access";report["error"]=repr(e)[:600]
