@@ -123,10 +123,24 @@ def solve(sgn,nt,nz,angles,straight=False,s=.699):
         g=grad(guess);v=jac(guess)
         p=float(np.dot(g,v)/np.dot(v,v))
         res=float(np.linalg.norm(g-p*v)/np.sqrt(len(guess)))
+        # Verify graph coordinates do not fold back on themselves.
+        XX=guess.reshape(nt,nz)
+        Xmid=(XX[1:,:]+XX[:-1,:])/2
+        Xt=(XX[1:,:]-XX[:-1,:])/(2/(nt-1))
+        tm=(ts[:-1]+ts[1:])/2
+        if straight:
+            wmid=np.ones_like(Xmid); dwmid=np.zeros_like(Xmid)
+        else:
+            wmid=1+.05*np.cos(K*Xmid)+sgn*.0005*(np.cos(2*K*Xmid)-np.cos(4*K*Xmid))
+            dwmid=-K*(.05*np.sin(K*Xmid)+sgn*.0005*(
+                     2*np.sin(2*K*Xmid)-4*np.sin(4*K*Xmid)))
+        transverse_jacobian=wmid/2+tm[:,None]*dwmid*Xt/2
+        assert np.min(transverse_jacobian)>0, "Folded transverse coordinates"
         row=dict(phase=sgn,nt=nt,nz=nz,plate_angle_deg=angle,straight=straight,
            pressure_signed_per_mm=p,volume_mm3=target,energy_normalized=energy(guess),
            volume_residual_mm3=constraint(guess),stationarity_rms=res,
-           max_depth_variation_um=float(1000*np.max(np.ptp(guess.reshape(nt,nz),axis=1))))
+           max_depth_variation_um=float(1000*np.max(np.ptp(guess.reshape(nt,nz),axis=1))),
+           minimum_transverse_coordinate_jacobian=float(np.min(transverse_jacobian)))
         assert opt.success and abs(row["volume_residual_mm3"])<1e-10 and res<1e-5,row
         rows.append(row)
     return rows
