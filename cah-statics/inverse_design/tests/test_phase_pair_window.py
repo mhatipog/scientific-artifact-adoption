@@ -22,6 +22,7 @@ class PhasePairWindowTests(unittest.TestCase):
         counts=exact_low_order_correlations(5)
         self.assertEqual(len(counts),5)
         self.assertTrue(all(c>0 for c in counts))
+        self.assertEqual(len(exact_low_order_correlations(3)),3)
         with self.assertRaises(ValueError):
             exact_low_order_correlations(6)
 
