@@ -58,7 +58,7 @@ def get_range(url: str, start: int, length: int, expected_total: int):
 
 
 def parse_first_ifd(header: bytes):
-    if header[:4] != b"MM\\x00*" or len(header) < 4096:
+    if header[:4] != b"MM\x00*" or len(header) < 4096:
         raise ValueError("Expected Big-Endian classic TIFF header")
     pos = struct.unpack_from(">I", header, 4)[0]
     n = struct.unpack_from(">H", header, pos)[0]
@@ -88,7 +88,7 @@ def parse_nd2_info(text: str):
     """Recover embedded original ND2 folder and Julian-like dTimeAbsolute."""
     fields = {}
     for name in ("Location", "dTimeAbsolute", "dCalibration", "Series 0 Name"):
-        match = re.search(r"^\\s*" + re.escape(name) + r"\\s*=\\s*(.+)$",
+        match = re.search(r"^\s*" + re.escape(name) + r"\s*=\s*(.+)$",
                           text, re.MULTILINE)
         fields[name] = match.group(1).strip() if match else None
     if fields["Location"] is None or "/Theta_95/Q1/" not in fields["Location"]:
@@ -113,7 +113,7 @@ def nd2_information(header, tags, signed_url):
     if first != 20 or not (100_000 < second < 2_000_000):
         raise ValueError("Expected Nikon info/labl metadata, not labels-only")
     raw, _ = get_range(signed_url, payload_offset, first+second, SOURCE_BYTES)
-    if raw[:20] != b"IJIJinfo\\x00\\x00\\x00\\x01labl\\x00\\x00\\x12\\xf0":
+    if raw[:20] != b"IJIJinfo\x00\x00\x00\x01labl\x00\x00\x12\xf0":
         raise ValueError("Unexpected ImageJ metadata magic")
     return parse_nd2_info(raw[first:first+second].decode("utf-16-be",
                                                          errors="replace"))
@@ -231,7 +231,7 @@ def run():
     b=np.frombuffer(batch,dtype=">u2").reshape(48,512,512)
     report,rows=analyze(a,b)
     pressure,_=get_range(URL+str(PRESSURE_ID),0,451,PRESSURE_BYTES)
-    m=re.search(rb"Date\\t([^\\r\\n]+)",pressure)
+    m=re.search(rb"Date\t([^\r\n]+)",pressure)
     if not m:
         raise ValueError("Pressure acquisition timestamp missing")
     report["provenance"]={
@@ -250,7 +250,7 @@ def run():
                     "mask_hi","front_x_40_px","front_x_50_px","front_x_60_px"])
         w.writerows(rows)
     (args.output_dir/"third_wettability_audit.json").write_text(
-        json.dumps(report,indent=2)+"\\n")
+        json.dumps(report,indent=2)+"\n")
     print(json.dumps(report,indent=2))
     print("Only lightweight derived results saved; no original TIFF published.")
 
