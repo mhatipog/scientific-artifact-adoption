@@ -22,6 +22,8 @@ jobs:
         run: python cah-statics/empirical/waveform_registration/figure_source.py
       - name: Independently register the three original raw FISO recordings to the paper waveforms
         run: python cah-statics/empirical/waveform_registration/align_published.py
+      - name: Independently match original TIFF filling signals to published Figure 4
+        run: python cah-statics/empirical/waveform_registration/bridge_camera_pressure.py
       - name: Keep only short-lived derived manuscript figure and provenance
         uses: actions/upload-artifact@v4
         with:
