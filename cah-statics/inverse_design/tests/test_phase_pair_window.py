@@ -5,9 +5,11 @@ import sys
 from pathlib import Path
 
 import numpy as np
+import xml.etree.ElementTree as ET
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from dataclasses import replace
 
+from plot_phase_pair_window import svg_string
 from phase_pair_window import (
     Geometry, clearance, exact_low_order_correlations, jets, pair,
     stationary_fold_creation, stationary_roots, stress_grid,
@@ -78,6 +80,13 @@ class PhasePairWindowTests(unittest.TestCase):
                                for r in rows),40)
         self.assertGreater(min(min(r["jacobi_minus"],r["jacobi_plus"])
                                for r in rows),2.7)
+
+    def test_vector_figure_is_reproducible_xml(self):
+        xml=svg_string()
+        root=ET.fromstring(xml)
+        self.assertTrue(root.tag.endswith("svg"))
+        self.assertGreaterEqual(xml.count("<polyline"),4)
+        self.assertIn("405 sampled",xml)
 
     def test_competing_pressure_fold_born_at_finite_amplitude(self):
         p=stationary_fold_creation()
