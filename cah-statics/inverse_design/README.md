@@ -100,3 +100,11 @@ python -m unittest discover -s cah-statics/inverse_design/tests -p 'test_jet_inv
 ```
 
 **Still a draft:** no nonneutral continuum nonlinear quartic, independent wettability measurement, fabricated pair or optical liquid-depth calibration; readiness **5/10, unchanged**.
+
+## Geometry-fitted nonlinear 3D continuation (Round 18)
+
+[Full audited note](ROUND18_GEOMETRY_FITTED_3D.md), [reproducible solver](nonlinear3d_local_continuation.py), [seven offline tests](tests/test_nonlinear3d_local_continuation.py), [raw 10-grid convergence CSV](derived/nonlinear3d_local_diagonal.csv), [independent axial/depth grid CSV](derived/nonlinear3d_local_grid_axes.csv), [two-axis Richardson CSV](derived/nonlinear3d_local_richardson.csv) and [generated SVG figure](figures/nonlinear3d_local_convergence.svg).
+
+Replacing uniform transverse sampling by nodes graded in the **physical axial coordinate of the exact neutral cylinder** and using a **local sparse KKT equilibrium solve** resolves the earlier numerical branch/aliasing difficulty for near-neutral 3D single menisci. At 89.9° plates, finite-grid nonlinear Q differs by **0.56%/0.45%** from the independent exact continuum Jacobi susceptibilities; exploratory double-direction Richardson errors are **0.016%/0.006%**. Exact 90° pressure residuals are ≲1×10⁻⁵ mm⁻¹ on the finest 257×17 mesh. Discrete constrained Hessian signs are positive on separately tested 65×5 and 129×9 neutral/nonneutral states.
+
+**These are numerical benchmark results, not a measured effect, continuum stability theorem or nonneutral two-front B4.** The existing failed unconstrained 3D result remains in Round 17 as an essential negative control. No workflows, media or experimental pressure fits were introduced. **Still draft/unmerged; journal readiness 5/10, unchanged.**
