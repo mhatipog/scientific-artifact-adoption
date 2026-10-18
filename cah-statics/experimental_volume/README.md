@@ -69,7 +69,7 @@ Opt in only when deliberately re-reading ~4.72 MB of the archived 2.54-GB TIFF:
 The [Round-15 original-frame diagnostic](ROUND15_RETAINED_OPTICS.md) shows that even after excluding a 7-pixel band around the classified wet/dry boundary, the original 95° frames 4822→4824 contain **33,175 persistently wet pixels** with median normalized optical change **+0.16759**, compared with **+0.00676** in stable-off pixels. Five frozen classifiers and 15-pixel boundary exclusion preserve the qualitative observation. These are **optical values, not calibrated water-column depths or volumes**; they expose a limitation of the binary area measure without resolving the mass budget.
 
 - [Manual strict-206 original TIFF audit](optical_retention_audit.py) (four source frames only; emits 20 segmentation/erosion rows)
-- [Five-row 7-pixel-boundary derived CSV](derived/retained_optical_95_4822_4824_7px.csv)
+- [Five-row 7-pixel-boundary derived CSV](derived/retained_optical_95_4822_4824_7px.csv)\n- [Optical-controls vector plot](figures/retained_optical_progress_7px.svg) and [offline plot generator](plot_retained_optics.py)
 - [Four offline tests](tests/test_optical_retention_audit.py)
 
 Run tests offline:
