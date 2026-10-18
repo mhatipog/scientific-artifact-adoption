@@ -1,0 +1,49 @@
+name: CAH empirical microscope frames
+
+on:
+  workflow_dispatch:
+    inputs:
+      angle:
+        description: 'Water-air Q1 experiment to inspect (large original TIFF)'
+        required: true
+        type: choice
+        default: '60'
+        options:
+          - '60'
+          - '120'
+  pull_request:
+    paths:
+      - 'cah-statics/empirical/yan_video/**'
+      - '.github/workflows/cah-yan-video.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate-video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Cheap syntax-only PR check (no 200-350MB downloads)
+        run: python -m py_compile cah-statics/empirical/yan_video/*.py
+      - name: Check stored optical measurements and volume-unit arithmetic
+        run: python cah-statics/empirical/yan_video/check_observed_summary.py
+      - name: Install optical analysis dependencies
+        if: github.event_name == 'workflow_dispatch'
+        run: python -m pip install 'tifffile>=2025.1' 'numpy>=1.26,<3' 'matplotlib>=3.8,<4' 'scipy>=1.12,<2'
+      - name: Reproduce original TIFF optical analysis (manual only)
+        if: github.event_name == 'workflow_dispatch'
+        env:
+          CAH_VIDEO_ANGLE: '${{ github.event.inputs.angle }}'
+        run: python cah-statics/empirical/yan_video/inspect_video.py
+      - name: Archive limited-time derived scientific diagnostics
+        if: github.event_name == 'workflow_dispatch'
+        uses: actions/upload-artifact@v4
+        with:
+          name: cah-yan-empirical-${{ github.event.inputs.angle }}
+          path: cah-statics/empirical/yan_video/outputs/
+          retention-days: 7
