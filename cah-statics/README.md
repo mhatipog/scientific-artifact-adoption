@@ -152,3 +152,8 @@ regenerates an evidence figure and runs lightweight benchmarks.
 ## Round 6: nonlinear 3D equilibrium and energy invariance
 
 See [Round 6](ROUND6_NONLINEAR3D.md) and the optional [JAX surface solver](nonlinear3d_variational.py). A nonlinear 3D variational calculation with mobile contact lines independently confirms the near-neutral pressure correction and the **quadratic** shape-specific correction at fixed volume. The *3D quartic bifurcation classification has not been computed*; there is no experimental quantitative fit. The JAX workflow is **manual-only** to conserve runner minutes.
+
+
+## Round 7: a stronger, higher-order isospectral counterexample
+
+[Round 7](ROUND7_HIGH_ORDER_ISOSPECTRAL.md) constructs phase-sensitive microchannels whose **all translation-invariant roughness correlations through fifth order are identical**, yet their *planar* capillary local bifurcation classes differ. It includes a high-precision symbolic-combinatorial and Young–Laplace-derivative verification script; **no 3D bifurcation sign or experimental validation is claimed**.
