@@ -196,7 +196,8 @@ def main():
           pressure_mismatch_inverse_mm=pdiff,
           Hprime_one_contact=Hprime,
           explanation="E'_Young=0 due to H'=0, but p_left != p_right"),
-       wetting_sensitivity=sens,\n       fabrication_amplitude_sensitivity=fabrication)
+       wetting_sensitivity=sens,
+       fabrication_amplitude_sensitivity=fabrication)
     (OUT/"round10_full_equilibria.json").write_text(json.dumps(output,indent=2))
     branches=[]
     for sign,model in ((-1,mA),(1,mB)):
