@@ -1,0 +1,27 @@
+name: CAH empirical microscope frames
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'cah-statics/empirical/yan_video/**'
+      - '.github/workflows/cah-yan-video.yml'
+permissions:
+  contents: read
+jobs:
+  validate-video:
+    runs-on: ubuntu-latest
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python -m pip install 'tifffile>=2025.1' 'numpy>=1.26,<3' 'matplotlib>=3.8,<4'
+      - name: Check original file MD5 and inspect one TIFF sequence
+        run: python cah-statics/empirical/yan_video/inspect_video.py
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cah-yan-original-video-sampling
+          path: cah-statics/empirical/yan_video/outputs/
+          retention-days: 7
