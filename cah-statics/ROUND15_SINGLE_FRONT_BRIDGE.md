@@ -1,5 +1,7 @@
 # Round 15 — an exact single-front pressure–volume criterion for two-front onset
 
+**Provenance:** this same transfer identity, including its sixth-order degeneracy, was **already derived and tested** in [the unmerged experimental-volume research branch's theory note](https://github.com/mhatipog/scientific-artifact-adoption/blob/research/cah-phase-volume-transfer-20261018/cah-statics/theory/PRESSURE_VOLUME_TRANSFER.md) and [source](https://github.com/mhatipog/scientific-artifact-adoption/blob/research/cah-phase-volume-transfer-20261018/cah-statics/theory/single_front_transfer.py). **It is not newly discovered here.** The new work in the present theory branch is an independent analytic-jet evaluation on the more resolvable Round-14 geometry and an explicit conservative pressure-measurement sign certificate.
+
 **Status:** exact chain-rule theorem **within the previously specified reduced planar fixed-volume model**, checked independently in both signs of the Round-14 Fourier-phase example. **Not** a theorem of arbitrary 3D free-contact-line stability. No direct experimental pressure–volume curve has been calibrated for Yan (2025); the result does not validate one.
 
 ## Proposition (local quartic transfer)
@@ -58,7 +60,7 @@ the exact analytic-jets implementation provides:
 | − phase | 0.7039537629 | 4.035332058 | −13.93848776 | +109.2217413 | −2413.486981 |
 | + phase | 0.7088690566 | 2.999132549 | −12.75881297 | −534.8302698 | +3605.930678 |
 
-Both independent expressions for \(B_4\) agree to better than \(10^{-9}\) at those isolated local roots (observed absolute differences ~\(10^{-12}\)). This is an algebraic cross-check of a specific numerical reduced-model calculation, **not** an independent experimental or continuum three-dimensional prediction.
+The older [PR-14 energy-based implementation](https://github.com/mhatipog/scientific-artifact-adoption/blob/research/cah-phase-volume-transfer-20261018/cah-statics/theory/single_front_transfer.py) was additionally rerun: its fixed-volume quartic and sixth-order-degeneracy checks passed, and its coefficient matches the new implementation **exactly to printed double precision for both phase geometries**. Both independent expressions for \(B_4\) agree to better than \(10^{-9}\) at those isolated local roots (observed absolute differences ~\(10^{-12}\)). This is an algebraic cross-check of a specific numerical reduced-model calculation, **not** an independent experimental or continuum three-dimensional prediction.
 
 ## A conditional four-pressure-point sign certificate
 
@@ -78,7 +80,7 @@ The code demonstrates this bound on synthetic cubic–quintic pressure curves on
 
 ## Context, novelty and gates
 
-Wells et al., *Nature Communications* **9**, 1380 (2018), doi:10.1038/s41467-018-03840-6, and Bisquert et al., *Langmuir* **40**, 24387 (2024), doi:10.1021/acs.langmuir.4c02908, already establish the importance of snaps and competing pitchfork/fold transitions. Therefore neither symmetry breaking nor smooth-geometry hysteresis is claimed here as a discovery. The chain-rule cancellation is a concise **model-specific reparameterization theorem**; a comprehensive mathematical priority search is still required before presenting it as novel to the literature. Exact higher-order geometric correlations of Round 14 are a separate hypothesis of practical interest.
+Wells et al., *Nature Communications* **9**, 1380 (2018), doi:10.1038/s41467-018-03840-6, and Bisquert et al., *Langmuir* **40**, 24387 (2024), doi:10.1021/acs.langmuir.4c02908, already establish the importance of snaps and competing pitchfork/fold transitions. Therefore neither symmetry breaking nor smooth-geometry hysteresis is claimed here as a discovery. The chain-rule cancellation is a concise **model-specific reparameterization theorem already present in our own draft PR #14**, not a fresh result of this round; a comprehensive mathematical priority search is still required before presenting it as novel to the literature. Exact higher-order geometric correlations of Round 14 are a separate hypothesis of practical interest.
 
 1. Reproduce the unit tests and both numerical signs, offline.
 2. Validate the local fixed-volume Hessian and quartic against a converged 3D Young–Laplace free-contact-line calculation for neutral plates, then non-neutral plates. Explicitly test depth modes; a finite polynomial basis is not continuum certification.
