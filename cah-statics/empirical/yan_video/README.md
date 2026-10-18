@@ -23,3 +23,10 @@ alone is not a result validating our theory.
 
 Workflow is manual and PR-path-scoped; no schedule. Avoid expensive
 large-data downloads in every pull request unrelated to CAH imagery.
+
+
+## Original-video measurements now available
+
+Two independently fetched original water–air Q1 videos (60° and 120°) yield 10–90% normalized optical pore-filling times **3.488 s** and **1.114 s**, respectively. See [the full experimental result and explicit clock-mismatch audit](ROUND8_MEASURED_OPTICAL.md) and [the tiny verified summary table](observed_video_summary.csv). These timings are from original experimental stacks, not a new parameter-free capillary pressure prediction. The pump-only volume comparison is conditional on a quasi-2D optical-to-volume conversion.
+
+To rerun the **large raw videos** only when needed: Actions → *CAH empirical microscope frames* → Run workflow → choose 60 or 120. Pull requests execute fast syntax and arithmetic checks **without** downloading 200–350 MB of raw files. The experimental videos themselves are never committed.
