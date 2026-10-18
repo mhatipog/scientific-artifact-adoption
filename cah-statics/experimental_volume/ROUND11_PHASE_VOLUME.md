@@ -9,6 +9,8 @@
 - Nominal pore 800 × 800 × 120 µm; pixel pitch 2.4859 µm, depth assumed uniform; nominal pore volume 0.0768 µL; Q1 pump 0.01 mL/h = 0.00277778 µL/s.
 - Geometry conflict remains: Fig. 1d SEM caption calls the rounded pore opening about **20 µm** radius; Sec. 4.2 gives **5.6 µm** for an operational contact-line pinning region. These are not a uniquely specified fillet profile. A 5.6 µm feature is only **2.25 image pixels**, while 20 µm is **8.05 pixels**. Do not infer 3D corner curvature from these videos.
 
+**Archive inventory limitation:** The DaRUS deposit currently lists 36 files. It contains no TIFF explicitly named 95_Q1_water_air; a **2,544,624,129-byte** file is named 90_Q1_water_air_15006-19853_TD.tif (file ID 351440). Its connection to the reported 95° case is *unverified* and it was not downloaded. No confocal z-stack or independent pore-depth map was identified in the listed filenames. This is a concrete, unresolved source-metadata gate for a third-wettability holdout.
+
 ## Direct measurements and reproducibility
 
 The manually executable segment_original_tiffs.py downloads just one original TIFF when explicitly requested, validates its source MD5, locates a pair of wall lines separated by the nominal 322-pixel pore span, and classifies water by initial-to-final local contrast at every image frame after exterior illumination correction. A three-pixel wall strip is deliberately excluded. Five predetermined contrast settings explore method sensitivity. The method does **not** label every non-water pixel as gas: such pixels may include residual corner air, poorly resolved films, dust or wall artifacts.
