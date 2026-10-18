@@ -109,12 +109,13 @@ def exact_low_order_correlations(max_order: int = 5):
         raise ValueError("Only orders <=5 are certified by the 5/7 pair")
     states={(0,0)}
     count=[]
-    for n in range(1,max_order+1):
+    for n in range(1,6):
         states={(total+freq, (odd+int(abs(freq)>1))%2)
                 for total,odd in states for freq in (-7,-5,-1,1,5,7)}
         if (0,1) in states:
             raise AssertionError(f"An odd-high-mode zero sum exists at n={n}")
-        count.append(len(states))
+        if n<=max_order:
+            count.append(len(states))
     # It MUST fail at sixth order: (1,1,1,1,1,-5).
     states={(total+freq, (odd+int(abs(freq)>1))%2)
             for total,odd in states for freq in (-7,-5,-1,1,5,7)}
