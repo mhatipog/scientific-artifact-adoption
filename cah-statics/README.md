@@ -142,3 +142,8 @@ The claimed low-angle (60°–70°) transition is **withdrawn as numerically
 unconverged**. No quantitative experimental jump validation exists yet.
 The [manual/PR-only workflow](../.github/workflows/cah-round5-3d.yml)
 regenerates an evidence figure and runs lightweight benchmarks.
+
+
+## Round 5: finite-depth plate angle and corner-wetting constraints
+
+[Round 5](ROUND5_PLATE_CORNERS.md) derives the first-order 3D pressure correction at neutral-plate critical states, tests the 2D Jacobi PDE on refined meshes, and **checks the classical Concus–Finn corner-film exclusion**. It does **not** establish the full nonlinear non-neutral 3D bifurcation class or experimental fit.
