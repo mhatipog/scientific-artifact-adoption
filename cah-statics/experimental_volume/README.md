@@ -42,3 +42,24 @@ Opt into a *manual* approximately 27-MB source byte-range audit (not an Actions 
     python sparse_third_wettability.py --download-ranges
 
 Source TIFFs and proprietary parent `.nd2` files are not committed. Reading byte ranges cannot independently verify the supplied full-file MD5. **No 3D volume calibration or 95° image/pressure hardware synchronization is claimed.**
+
+
+## Loss-guarded pump-only depth certificate (Round 13)
+
+The [Round-13 proof and original-image results](ROUND13_CRITICAL_DEPTH.md) invert mass conservation to ask what **independently measured incremental water thickness** would falsify pump-only filling without requiring a camera–pressure time shift. In the clean 95° 4822→4824 interval, five frozen optical masks yield **0.983–1.400 µm** worst-case critical depth, even if all reversed-class pixels release the full nominal 120-µm pore depth. The earlier window is **not** segmentation-robust. This is a *conditional falsification threshold*, not a measurement of 3D liquid volume, reservoir release or pressure.
+
+- [Sparse source-image classifier and activation/loss balance](critical_depth_certificate.py)
+- [Ten frozen window/threshold measurements](derived/critical_depth_95_windows.csv)
+- [Reproducible SVG comparison](figures/critical_depth_95_guarded.svg) and [offline plot generator](plot_critical_depth.py)
+- [Seven zero-network regression tests](tests/test_critical_depth_certificate.py)
+
+Reproduce the figure and tests **without network**:
+
+    python tests/test_critical_depth_certificate.py
+    python plot_critical_depth.py
+
+Opt in only when deliberately re-reading ~4.72 MB of the archived 2.54-GB TIFF:
+
+    python critical_depth_certificate.py --download-ranges
+
+**The still-missing decisive input is calibrated *incremental* liquid-column thickness, not optical intensity, and pressure synchronization remains unverified.** This research PR remains draft and publication readiness remains 5/10.
