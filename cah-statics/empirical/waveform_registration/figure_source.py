@@ -49,6 +49,9 @@ index=matches[-1]
 pg=doc[index]
 pix=pg.get_pixmap(matrix=fitz.Matrix(1.8,1.8),alpha=False)
 (png:=OUT/"published_fig5_source_page.png").write_bytes(pix.tobytes("png"))
+# Figure 4 saturation curves supply an independent optical-camera time axis.
+prior=doc[index-1].get_pixmap(matrix=fitz.Matrix(1.8,1.8),alpha=False)
+(OUT/"published_fig4_source_page.png").write_bytes(prior.tobytes("png"))
 report={"source":source,"sha256":hashlib.sha256(blob).hexdigest(),
         "pdf_pages":len(doc),"candidate_pages":matches,"rendered_page":index,
         "width_px":pix.width,"height_px":pix.height,
