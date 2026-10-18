@@ -62,6 +62,27 @@ the exact analytic-jets implementation provides:
 
 The older [PR-14 energy-based implementation](https://github.com/mhatipog/scientific-artifact-adoption/blob/research/cah-phase-volume-transfer-20261018/cah-statics/theory/single_front_transfer.py) was additionally rerun: its fixed-volume quartic and sixth-order-degeneracy checks passed, and its coefficient matches the new implementation **exactly to printed double precision for both phase geometries**. Both independent expressions for \(B_4\) agree to better than \(10^{-9}\) at those isolated local roots (observed absolute differences ~\(10^{-12}\)). This is an algebraic cross-check of a specific numerical reduced-model calculation, **not** an independent experimental or continuum three-dimensional prediction.
 
+## Independent finite-displacement nonlinear branch verification
+
+The quartic/chain-rule agreement above could be a shared algebraic error. We therefore solved the **untruncated reduced equilibrium equation** \(p(s+c)=p(s-c)\) directly using a bracketed scalar root near each isolated pressure stationary point, and numerically integrated the independently coded \(H'(x)\) to obtain \(q=(Q_1+Q_2)/2\) and \(\eta=(Q_1-Q_2)/2\). There is no volume-coordinate polynomial fit and no experimentally fitted parameter.
+
+The normal form predicts a small-amplitude branch slope
+\[
+S=\lim_{q\to Q_c}\frac{\eta^2}{q-Q_c}=-6\frac{P''(Q_c)}{P'''(Q_c)}.
+\]
+For the negative phase \(S=+0.765698529\); for the positive phase \(S=-0.143134901\). The opposite signs predict **opposite sides of the controlled-volume critical point** for asymmetric branches.
+
+| Centre displacement \(c\) | − phase relative slope error | + phase relative slope error |
+|---|---:|---:|
+| 4.0 µm | 3.923% | 1.017% |
+| 2.0 µm | 1.024% | 0.323% |
+| 1.0 µm | 0.259% | 0.085% |
+| 0.5 µm | **0.0649%** | **0.0216%** |
+
+All eight direct pressure-equality residuals are at floating-point roundoff (~\(10^{-15}\) in the code's reduced pressure units), and the error decreases approximately as \(c^2\), as a smooth normal form predicts. The sign of \(q-Q_c\) matches the predicted phase side in all eight cases. The displayed errors are **regression checks selected during numerical development, not prospective experimental tolerances**. They validate *local reduced-model branch algebra*, not stability against 3D depth modes or finite-jump distances.
+
+Reproduce offline with [`local_branch_validation.py`](inverse_design/local_branch_validation.py), [eight frozen continuation rows](inverse_design/derived/nonlinear_local_branch.csv) and [three regression tests](inverse_design/tests/test_local_branch_validation.py). No GitHub Actions run is required.
+
 ## A conditional four-pressure-point sign certificate
 
 The theorem suggests measuring \(P'''(Q_c)\) from an independently **calibrated** single-front \(p(Q)\) curve. Because numerical third differentiation amplifies noise, do not classify signs from a smoothing spline without a declared resolution test.
