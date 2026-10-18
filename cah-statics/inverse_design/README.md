@@ -46,3 +46,38 @@ The [Round-15 note](../ROUND15_SINGLE_FRONT_BRIDGE.md) also compares the measure
 python -m unittest discover -s cah-statics/inverse_design/tests -p 'test_local_branch_validation.py' -v
 python cah-statics/inverse_design/local_branch_validation.py --csv
 ```
+
+## Neutral-plate continuum spectral isolation (Round 16)
+
+The [Round-16 mathematical audit](ROUND16_SPECTRAL_ISOLATION.md) establishes a
+**conditional finite-spectral non-identifiability result**: signed Fourier
+roughness phases with exactly matched finite-order correlations can produce
+opposite *nonlinear* local quartics even as every *fixed* finite collection
+of free-contact-line **neutral-plate 3D Jacobi eigenvalues** approaches
+agreement. It explicitly includes the solid wall's support curvature in
+the Robin contact-line condition; using the critical-point Robin coefficient
+away from a pressure stationary state would give spurious zero modes.
+
+The nominal 170-nm 5/7 pair's first positive eigenvalues are
+12.526282 / 12.509126 mm^-2, and the first depth-varying mode at
+d=0.38 mm is 68.349061 mm^-2. The independent P1 FEM gaps show
+second-order convergence. These are **exact special-case continuum linear
+spectra, not finite-angle nonlinear 3D quartics**. The theorem is a
+synthesis of our prior Round-8 Fourier argument with conventional
+Sturm–Liouville theory; literature priority has not been established.
+
+- [Executable continuum spectral calculation and CSV reproducer](spectral_isolation.py)
+- [Ten offline FEM, boundary-condition and asymptotic tests](tests/test_spectral_isolation.py)
+- [Derived nominal and high-harmonic CSV](derived/neutral_plate_jacobi_spectrum.csv)
+- [Reproducible SVG figure](figures/jacobi_spectral_isolation.svg) and [generator](plot_spectral_isolation.py)
+
+Run locally, without JAX, GitHub Actions or experimental-media downloads:
+
+```sh
+python -m unittest discover -s cah-statics/inverse_design/tests -p 'test_spectral_isolation.py' -v
+python cah-statics/inverse_design/spectral_isolation.py --csv
+python cah-statics/inverse_design/plot_spectral_isolation.py
+```
+
+**Still draft and unmerged.** No fabricated pair, measured wetting or
+non-neutral constrained nonlinear 3D stability. Submission readiness remains 5/10.
