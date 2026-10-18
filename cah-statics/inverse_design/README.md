@@ -81,3 +81,22 @@ python cah-statics/inverse_design/plot_spectral_isolation.py
 
 **Still draft and unmerged.** No fabricated pair, measured wetting or
 non-neutral constrained nonlinear 3D stability. Submission readiness remains 5/10.
+
+## Exact neutral-plate plate-wetting response and invisible quartic sign (Round 17)
+
+[Round-17 analytical note, convergent FEM, constructive jet counterexample, and failed nonlinear gate](ROUND17_NEUTRAL_PLATE_RESPONSE.md):
+
+- For the selected model cylinders, the fixed-volume plate-angle energy coefficient is **Q− = −0.087315948234** and **Q+ = −0.085192444372 mm²**, with rigorous spectral truncation bounds below **1.85×10⁻¹¹ mm²** for 320 modes (aside from floating and input errors). Independent bordered P1 FEM shows approximately fourfold error reduction per mesh refinement; 11 new offline tests pass.
+- A mirror-even smooth fourth-jet wall perturbation changes **B4** by exactly **H′sin(α) δw⁽⁴⁾/[12w(1+(w′/2)²)]** without changing the selected neutral-plate Jacobi operator, its entire spectrum or **Q**. This is a mathematical inverse-identifiability counterexample, **not** a realizable fabrication design or a new generic normal-form principle; seven more offline tests pass.
+- A separately implemented full-area CasADi nonlinear 3D model **fails to converge to the exact 90° corrugated pressure**, despite very small KKT residuals. Do not treat its 89° energy coefficients or bifurcation classes as validated. [Rejected mesh diagnostic](derived/nonlinear3d_failed_mesh_gate.csv), [optional reproducer](nonlinear3d_casadi_audit.py).
+
+Reproduce mathematics without workflows or JAX:
+
+```sh
+python cah-statics/inverse_design/plate_susceptibility.py --csv
+python cah-statics/inverse_design/jet_invisibility.py
+python -m unittest discover -s cah-statics/inverse_design/tests -p 'test_plate_susceptibility.py' -v
+python -m unittest discover -s cah-statics/inverse_design/tests -p 'test_jet_invisibility.py' -v
+```
+
+**Still a draft:** no nonneutral continuum nonlinear quartic, independent wettability measurement, fabricated pair or optical liquid-depth calibration; readiness **5/10, unchanged**.
