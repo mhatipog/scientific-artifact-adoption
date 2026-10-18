@@ -144,3 +144,81 @@ this numerical correspondence is NOT proof of the shared clock.
 120° video can be accessed via safe HTTP byte ranges, without
 downloading any large image. If range access is unavailable, stop
 and request/source a tiny authorized clip for real image-based alignment.
+
+
+## New: quantitative cross-modal microscope-curvature test (18 October 2026)
+
+A bounded sparse TIFF extractor downloaded original 16-bit image frames
+from the **120°** Q1 experiment at only ~10.7 MB of range requests from
+the 345 MB original video; images remain attributed to Yan et al.
+[DaRUS CC BY 4.0](https://doi.org/10.18419/DARUS-4683).
+The camera frames remain precisely labelled with *original* indices.
+
+A central pore darkness proxy from the native images rises sharply:
+frame 4900 (index 200) ~0.118; 4905 ~0.543; 4910 ~0.955;
+4920 ~0.999. These optical numbers come from an illustrative
+central 175×160-pixel region and a fixed raw 16-bit threshold.
+They are **not independently calibrated pore-volume saturation**.
+
+### An independent pressure–curvature reconstruction
+
+An OpenCV Canny edge mask and robust least-squares circular fits to the
+plan-view menisci (no pressure in image fitting) give:
+
+| Independent image measurement | Value |
+|---|---:|
+| Original video frame 4900 (index 200) | radius **120.487 µm** |
+| Original video frame 4920 (index 220) | radius **429.732 µm** |
+| Water–air tension assumed | 0.072 N/m |
+| Curvature-derived signed pressure change magnitude | **0.4300 kPa** |
+| From candidate measured pressure event (166.15→169.13 s on sensor) | **0.3863 kPa** |
+| Central difference | **0.0438 kPa** (11.3% of signal decrease) |
+| Fit sensitivity across 9 edge/initial-band choices | **0.394–0.435 kPa** |
+| Quoted original pressure-sensor reproducibility | **±0.2 kPa** |
+
+The classic *planar curvature difference* follows from
+
+\[
+|\Delta P_{\rm cap}|\simeq
+\gamma\left(\frac{1}{R_{4900}}-\frac{1}{R_{4920}}\right),
+\]
+
+**only if the out-of-plane curvature and flow/storage corrections
+change negligibly between the two images**. This cancellation of
+unknown depth curvature can make differences more identifiable
+than absolute pressure thresholds.
+
+**CRITICAL: THIS IS NOT A BLIND PRESSURE PREDICTION.**
+The radii are **measured from the same experiment**, rather than
+predicted from lithographic topography and Young angle; the
+classical Young–Laplace relation is well-known. The two image frames
+span ~0.667 seconds while the selected sensor release spans ~3
+seconds, and camera-logger time-origin offset is **not independently
+known**. These cannot yet be called the two endpoints of the *same*
+measured event. The numerical agreement could be coincidental.
+The sensor ±0.2 kPa precision also precludes a strong fit statistic
+from this single provisional pairing.
+
+The source TIFF includes clear films at frames 4900, 4905, 4910,
+and 4920; the immersion front traverses the pore rapidly. The
+pressure trace's biggest candidate decrease is **later on a naive
+shared-zero time axis**, confirming clock synchronization is needed.
+
+**Publication interpretation:** A reproducible cross-modal *candidate*
+validation of classical Young–Laplace, a major practical improvement
+over graph-digitization. It is neither novelty evidence for our
+isospectral two-front pitchfork nor a demonstrated quantitative
+prediction of jump positions. **Readiness remains 5/10** until clock
+synchronization, measured advancing wettability, actual wall profile,
+and a parameter-free forward model produce multiple event predictions.
+
+Reproduce after pressure parsing and sparse image extraction:
+
+```bash
+python cah-statics/empirical/yan_crossmodal.py
+```
+
+The script generates `yan_crossmodal_provisional.json`,
+`yan_radius_fit_robustness.csv`, and an explanatory PNG/SVG figure.
+No external video, experimental pressure trace, capillary contact angle,
+or pressure sensor offset is fitted to improve the result.
