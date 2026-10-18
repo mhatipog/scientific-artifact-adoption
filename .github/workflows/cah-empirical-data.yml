@@ -24,6 +24,8 @@ jobs:
         run: python cah-statics/empirical/yan_entry_forward.py
       - name: Index Q1 video frame ranges, without downloading TIFFs
         run: python cah-statics/empirical/yan_video_index.py
+      - name: Check bounded TIFF byte-range access (no video download)
+        run: python cah-statics/empirical/yan_tiff_range_probe.py
       - uses: actions/upload-artifact@v4
         with:
           name: cah-independent-pressure-data-audit
