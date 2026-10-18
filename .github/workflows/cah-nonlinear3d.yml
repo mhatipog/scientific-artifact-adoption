@@ -1,0 +1,28 @@
+name: CAH nonlinear 3D (optional manual)
+on:
+  workflow_dispatch:
+jobs:
+  independent-nonlinear-3d:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: cah-statics/requirements-3d.txt
+      - name: Install nonlinear 3D numerical dependencies
+        run: python -m pip install -r cah-statics/requirements-3d.txt
+      - name: Exact straight-channel and nonlinear 3D tests
+        run: python cah-statics/nonlinear3d_variational.py
+        env:
+          OPENBLAS_NUM_THREADS: "1"
+          JAX_PLATFORM_NAME: cpu
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cah-3d-nonlinear-model-only
+          path: |
+            cah-statics/outputs/round6_nonlinear3d_results.csv
+            cah-statics/outputs/round6_nonlinear3d.json
+          retention-days: 7
