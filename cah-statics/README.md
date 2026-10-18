@@ -169,3 +169,8 @@ Run `python cah-statics/arbitrary_order_capillary_theorem.py` to check the exact
 ## Round 9: the singular physical limit behind the arbitrary-order theorem
 
 The [Round 9 energy report](ROUND9_SINGULAR_ENERGY_LIMIT.md) independently derives the sixth-order coefficient and shows that **a finite difference in local B4 can coexist with a vanishing experimentally relevant displacement/energy window**. The normalized constrained-energy crossover obeys `cos(xi)-1+xi**2/2` as the high harmonic grows (for nondegenerate subsequences). The accompanying script directly integrates the exact fixed-volume pressure identity and verifies the full energy asymptotics. **No experimental fit or converged non-neutral-plate 3D quartic result is claimed.** The experimental 3D diagnostic has also been corrected for a mismatch between its critical starting geometry and the actual nonlinear surface model.
+
+
+## Round 10: physically testable full-equilibrium two-stage instability
+
+The [Round 10 scientific audit](ROUND10_TRUE_BIFURCATION_SEQUENCE.md) distinguishes genuine two-meniscus pressure-balanced constrained-Hessian saddles from **spurious extrema** created by a singular Young-angle-only volume elimination. The fabrication-scale ±0.4 µm pair predicts different *local* pathways: subcritical onset versus a stable asymmetric branch followed by a second fold **2.595 nL** later at **23.60 µm** centre shift. A physically meaningful index-one saddle barrier is expressed in illustrative pJ, with no claims of a selected experimental jump. Reproduce using [the full 4-DOF validator](round10_full_equilibria.py).
