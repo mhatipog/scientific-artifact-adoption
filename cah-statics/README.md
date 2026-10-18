@@ -157,3 +157,10 @@ See [Round 6](ROUND6_NONLINEAR3D.md) and the optional [JAX surface solver](nonli
 ## Round 7: a stronger, higher-order isospectral counterexample
 
 [Round 7](ROUND7_HIGH_ORDER_ISOSPECTRAL.md) constructs phase-sensitive microchannels whose **all translation-invariant roughness correlations through fifth order are identical**, yet their *planar* capillary local bifurcation classes differ. It includes a high-precision symbolic-combinatorial and Young–Laplace-derivative verification script; **no 3D bifurcation sign or experimental validation is claimed**.
+
+
+## Round 8: arbitrary-order isocorrelation theorem and 3D quartic diagnostic
+
+[Research report](ROUND8_ARBITRARY_ORDER_THEOREM.md) gives a qualified proof that for any finite roughness-correlation order, phase-matched profiles can have opposite **local** Young–Laplace quartic signs. For ideal **90° top/bottom plates**, the regular critical cylindrical interfaces lift to exact 3D stationary surfaces and vertical modes are noncritical. This is **not** proof for non-neutral plates or physical fabrication at subatomic roughness amplitudes.
+
+Run `python cah-statics/arbitrary_order_capillary_theorem.py` to check the exact frequency argument, high-precision coefficients, Jacobi positivity and wall clearance. The [bordered KKT extractor](experimental_quartic_kkt.py) and [nonlinear 3D adapter](experimental_3d_quartic_diagnostic.py) are clearly marked **experimental**: the latter does not pass the critical-branch/mesh convergence gates, so its quartic signs **must not be cited** as predictions. No automatic heavy JAX workflows are enabled.
