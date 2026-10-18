@@ -1,0 +1,216 @@
+{
+  "source": "Yan et al. (2025), doi:10.18419/DARUS-4683 (CC BY 4.0)",
+  "method": "Full original TIFF 30 Hz phase mask: geometry by opposing wall lines at 322px, 3px wall-strip exclusion, per-pixel dry/wet image contrast, Gaussian sigma1, exterior illumination correction. CSV downsampled to approx 10Hz for lightweight plotting.",
+  "pixel_pitch_um": 2.4859,
+  "depth_assumed_um": 120,
+  "original": {
+    "60": {
+      "md5": "3dbfc99446d61b89c905057cd360d5b7",
+      "frames": 381,
+      "interval_s": 0.03332185745239258,
+      "geometry_xyxy": [
+        96,
+        62,
+        418,
+        384
+      ]
+    },
+    "120": {
+      "md5": "1beeb40ae47b8c7299aba034e40c5c5f",
+      "frames": 658,
+      "interval_s": 0.033332135528326035,
+      "geometry_xyxy": [
+        96,
+        31,
+        418,
+        353
+      ]
+    }
+  },
+  "thresholds": {
+    "60": {
+      "(100, 0.4)": {
+        "final": 0.94961,
+        "t10": 6.573170023095118,
+        "t90": 10.821345646485039
+      },
+      "(180, 0.4)": {
+        "final": 0.93967,
+        "t10": 6.596258374220795,
+        "t90": 11.020550569099717
+      },
+      "(180, 0.5)": {
+        "final": 0.93967,
+        "t10": 6.850337441674715,
+        "t90": 11.028558507542702
+      },
+      "(180, 0.6)": {
+        "final": 0.93967,
+        "t10": 6.947331100163585,
+        "t90": 11.041619543711345
+      },
+      "(260, 0.6)": {
+        "final": 0.92831,
+        "t10": 6.949420685013976,
+        "t90": 11.268870995211046
+      }
+    },
+    "120": {
+      "(100, 0.4)": {
+        "final": 0.92163,
+        "t10": 6.743419215899846,
+        "t90": 8.183464783050256
+      },
+      "(180, 0.4)": {
+        "final": 0.91232,
+        "t10": 6.744148934102465,
+        "t90": 8.214935766642789
+      },
+      "(180, 0.5)": {
+        "final": 0.91232,
+        "t10": 6.772917143755893,
+        "t90": 8.22494317338014
+      },
+      "(180, 0.6)": {
+        "final": 0.91232,
+        "t10": 6.800801086834362,
+        "t90": 8.24008578188331
+      },
+      "(260, 0.6)": {
+        "final": 0.90471,
+        "t10": 6.80106403066349,
+        "t90": 8.268153931288905
+      }
+    }
+  },
+  "reference_mask_calculation": {
+    "60": {
+      "geometry": [
+        96,
+        62,
+        418,
+        384
+      ],
+      "final": 0.94961,
+      "final_default": 0.93967,
+      "rms_saturation_pp_no_time_shift": 5.158135840733076,
+      "t10": 6.850337441674715,
+      "t90": 11.028558507542702,
+      "duration": 4.178221065867986,
+      "delta_volume_uL": 0.061439999999999995,
+      "pump_uL": 0.011606169627411074,
+      "net_storage_uL": 0.04983383037258892,
+      "flow_ratio": 5.293736174154564,
+      "samples": [
+        [
+          5,
+          0.08,
+          0.022
+        ],
+        [
+          6,
+          0.097,
+          0.026
+        ],
+        [
+          7,
+          0.255,
+          0.195
+        ],
+        [
+          8,
+          0.575,
+          0.547
+        ],
+        [
+          9,
+          0.713,
+          0.702
+        ],
+        [
+          10,
+          0.822,
+          0.816
+        ],
+        [
+          11,
+          0.902,
+          0.899
+        ],
+        [
+          12,
+          0.985,
+          0.94
+        ]
+      ]
+    },
+    "120": {
+      "geometry": [
+        96,
+        31,
+        418,
+        353
+      ],
+      "final": 0.92163,
+      "final_default": 0.91232,
+      "rms_saturation_pp_no_time_shift": 4.14672862166914,
+      "t10": 6.772917143755893,
+      "t90": 8.22494317338014,
+      "duration": 1.452026029624247,
+      "delta_volume_uL": 0.0565248,
+      "pump_uL": 0.004033405637845131,
+      "net_storage_uL": 0.05249139436215487,
+      "flow_ratio": 14.014161994923645,
+      "samples": [
+        [
+          5,
+          0.065,
+          0.009
+        ],
+        [
+          6,
+          0.079,
+          0.013
+        ],
+        [
+          7,
+          0.424,
+          0.419
+        ],
+        [
+          8,
+          0.792,
+          0.795
+        ],
+        [
+          9,
+          0.915,
+          0.904
+        ],
+        [
+          10,
+          0.92,
+          0.905
+        ],
+        [
+          11,
+          0.924,
+          0.906
+        ],
+        [
+          12,
+          0.925,
+          0.908
+        ]
+      ]
+    }
+  },
+  "limitations": [
+    "Initial-to-final contrast misses approximately 5% of fully wet 60-degree pore, likely films/wall/optical artifacts; cause not uniquely identified.",
+    "The 120-degree terminal 92.16% similarity to published saturation is one endpoint validation, not a complete volumetric 3D validation.",
+    "Full trajectories differ from published saturation by approximately 4-5 percentage points RMS without time-axis adjustment.",
+    "Time origin between camera and sensor not hardware-confirmed; no pressure coupling validated.",
+    "Five point six micrometer corner is only 2.25 camera pixels, insufficient for a reliable curvature/fillet fit.",
+    "Uncertainty thresholds are method sensitivity, not confidence intervals."
+  ]
+}
