@@ -48,6 +48,7 @@ Thus the honest next step is an **independent spatially resolved depth calibrati
 
 - Executable: `optical_retention_audit.py`, manually invoked with `--download-ranges`; prints the 20 full (five classifiers × four erosions) rows, never downloads automatically or saves original TIFFs.
 - Frozen lightweight derived result: `derived/retained_optical_95_4822_4824_7px.csv` (the five classifier rows at 7-pixel exclusion).
+- [Deterministic seven-pixel optical-control SVG](figures/retained_optical_progress_7px.svg) and [stdlib figure reproducer](plot_retained_optics.py).
 - Offline synthetic tests: `tests/test_optical_retention_audit.py` (normalization, control group, boundary exclusion, illumination shift, malformed images).
 - No Actions workflow, no pressure registration, no 3D Young–Laplace validation; the experimental PR remains **draft**.
 - The observation strengthens the case for depth calibration but **does not raise journal-submission readiness above 5/10**.
