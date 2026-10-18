@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 
 HERE=Path(__file__).resolve().parent
 OUT=HERE/"outputs"
+OUT.mkdir(parents=True,exist_ok=True)
 ORIGINAL=(np.asarray(Image.open(OUT/"published_fig4_source_page.png").convert("RGB"),dtype=np.int16)
           if (OUT/"published_fig4_source_page.png").exists() else None)
 REGISTER=json.loads((OUT/"registration_audit.json").read_text()
