@@ -21,18 +21,46 @@ import numpy as np
 import jax
 jax.config.update("jax_enable_x64",True)
 import jax.numpy as jnp
-from scipy.optimize import root
-from nonlinear3d_variational import build, initial
+from scipy.optimize import root,brentq
+from nonlinear3d_variational import build, initial, K, TH
 from experimental_quartic_kkt import quartic,analytic_toy_test
 
-S_BY_PHASE={-1:.7001915575712277,1:.6994557892661718}
+def planar_critical_seed(phase):
+    """Match the actual 2/4-harmonic geometry and 36.5° angle in build().
+
+    Earlier versions erroneously seeded 5/7-harmonic 36° critical states.
+    Even this matched planar seed is NOT the discretized 3D critical volume.
+    """
+    def dp(x):
+        w=1+.05*np.cos(K*x)+phase*.0005*(np.cos(2*K*x)-np.cos(4*K*x))
+        wd=-K*(.05*np.sin(K*x)+phase*.0005*(
+            2*np.sin(2*K*x)-4*np.sin(4*K*x)))
+        wdd=-K*K*(.05*np.cos(K*x)+phase*.0005*(
+            4*np.cos(2*K*x)-16*np.cos(4*K*x)))
+        theta=TH+np.arctan(wd/2)
+        theta_prime=wdd/(2*(1+(wd/2)**2))
+        return -2*(np.sin(theta)*theta_prime*w+np.cos(theta)*wd)/w**2
+    x=np.linspace(.685,.713,501)
+    roots=np.flatnonzero(dp(x)[:-1]*dp(x)[1:]<0)
+    if len(roots)!=1:
+        raise RuntimeError("Expected exactly one selected planar pressure extremum")
+    i=roots[0]
+    return brentq(dp,x[i],x[i+1],xtol=1e-13)
+
+
+def seed_regression():
+    """Catch geometry/angle mismatches without running the heavy JAX solve."""
+    assert abs(planar_critical_seed(-1)-.7003310995128679)<1e-10
+    assert abs(planar_critical_seed(1)-.6974771898425391)<1e-10
+    print("PASS critical seeds match the actual 2/4-harmonic nonlinear3D geometry")
+
 
 
 def diagnostic(phase,nt,nz,plate_angle=90.):
     eps=float(np.cos(np.deg2rad(plate_angle)))
     F,dE,dV,t,z=build(phase,nt,nz)
     N=nt*nz
-    s=S_BY_PHASE[phase]
+    s=planar_critical_seed(phase)
     cap=initial(phase,t,z,s).ravel()
     weights=np.ones(nz)
     weights[[0,-1]]=.5
@@ -64,7 +92,8 @@ def diagnostic(phase,nt,nz,plate_angle=90.):
     if resid>1e-6:raise RuntimeError(f"Unable to track constrained branch: {resid}")
     formal=quartic(EVC,y,V0)
     contact_shift=float(np.mean(y[N:].reshape(nt,nz)[[0,-1],:])-s)
-    result=dict(M=5,phase=phase,plate_angle_deg=plate_angle,
+    result=dict(harmonics='2/4',critical_seed_s_mm=float(s),
+                phase=phase,plate_angle_deg=plate_angle,
                 transverse_nodes=nt,depth_nodes=nz,
                 constrained_volume_mm3=V0,base_solver_residual=resid,
                 mean_right_contact_shift_mm=contact_shift,**formal)
@@ -87,5 +116,6 @@ if __name__=="__main__":
     parser.add_argument("--nz",type=int,default=3)
     parser.add_argument("--plate-angle",type=float,default=90)
     args=parser.parse_args()
+    seed_regression()
     analytic_toy_test()
     diagnostic(args.phase,args.nt,args.nz,args.plate_angle)
