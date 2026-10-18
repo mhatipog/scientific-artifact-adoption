@@ -26,6 +26,10 @@ jobs:
         run: python cah-statics/empirical/yan_video_index.py
       - name: Check bounded TIFF byte-range access (no video download)
         run: python cah-statics/empirical/yan_tiff_range_probe.py
+      - name: Install limited image decoding dependencies
+        run: pip install 'numpy>=1.26,<3' 'tifffile>=2024.7' 'pillow>=10,<13'
+      - name: Read selected 120-degree video frames only via HTTP ranges
+        run: python cah-statics/empirical/yan_sparse_frames.py
       - uses: actions/upload-artifact@v4
         with:
           name: cah-independent-pressure-data-audit
@@ -33,4 +37,5 @@ jobs:
             cah-statics/empirical/outputs/empirical/darus_lowflow_pressure_audit.json
             cah-statics/empirical/outputs/empirical/measured_pressure_traces.svg
             cah-statics/empirical/outputs/empirical/yan_*
+            cah-statics/empirical/outputs/empirical/yan_frames/*.png
           retention-days: 7
