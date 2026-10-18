@@ -53,7 +53,7 @@ A perfect planar mask still cannot measure true 3D pore water volume without the
 
 ## Relative novelty and rigor
 
-The supplementary authors' level-set and Crisp–Thorpe baseline already achieves ~1.8% mean curvature deviation in the 95° reference case. The present analysis does **not** outperform it. Wells et al. (2018) and Bisquert et al. (2024) already document capillary fold/pitchfork snapping; storage-driven Haines jumps are also known. The separate exact two-front transfer identity is explained in theory/PRESSURE_VOLUME_TRANSFER.md and tested, but is a consequence of an additive symmetric energy, not currently an established new physical mechanism.
+The supplementary authors' level-set and Crisp–Thorpe baseline already achieves ~1.8% mean curvature deviation in the 95° reference case. The present analysis does **not** outperform it. Wells et al. (2018) and Bisquert et al. (2024) already document capillary fold/pitchfork snapping; storage-driven Haines jumps are also known. The separate exact two-front transfer identity is explained in ../theory/PRESSURE_VOLUME_TRANSFER.md and tested, but is a consequence of an additive symmetric energy, not currently an established new physical mechanism.
 
 **Professor's scores:** mathematical rigor **8/10** (exact conditional theorem); novelty **4/10**; experimental validation **4/10** (raw-mask endpoint check but incomplete films); potential impact **6/10**; current journal-readiness **5/10**, unchanged.
 
