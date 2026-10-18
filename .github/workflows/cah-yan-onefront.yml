@@ -1,0 +1,24 @@
+name: CAH single-front corner geometry check
+on:
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'cah-statics/empirical/yan_onefront/**'
+      - '.github/workflows/cah-yan-onefront.yml'
+permissions:
+  contents: read
+jobs:
+  geometric-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: python cah-statics/empirical/yan_onefront/geometry.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: yan-onefront-geometric-control
+          path: cah-statics/empirical/yan_onefront/outputs/*.csv
+          retention-days: 7
