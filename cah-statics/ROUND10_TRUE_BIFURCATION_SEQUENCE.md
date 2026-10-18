@@ -195,6 +195,40 @@ to fabrication imperfections and contact-line pinning.
 It is **not** identical to the ~30° apparent
 angle shown in the Poulose experiment.
 
+## 4b. Robustness to controlled higher-harmonic amplitude errors
+
+At the same *assumed* intrinsic Young angle 36.5°, we repeated
+the **entire equal-pressure asymmetric saddle-node calculation**
+for both profiles while varying the magnitude of the paired
+second/fourth Fourier correction. Changing its magnitude in
+both channels together preserves their matched power spectra,
+though each new pair has a different absolute spectral magnitude.
+
+| Paired harmonic magnitude | B continuous interval (nL) | B secondary-fold centre (µm) | (B fold − A onset) (nL) |
+|---:|---:|---:|---:|
+| ±0.30 µm | 1.797 | 22.003 | 2.043 |
+| ±0.35 µm | 2.204 | 22.881 | 2.193 |
+| ±0.40 µm | 2.595 | 23.601 | 2.312 |
+| ±0.45 µm | 2.953 | 24.194 | 2.404 |
+| ±0.50 µm | 3.252 | 24.683 | 2.473 |
+| ±0.60 µm | 3.547 | 25.407 | 2.555 |
+
+**Interpretation:** the two-stage local equilibrium sequence
+does not require an exactly manufactured 0.40 µm higher-harmonic
+amplitude. There is a controlled **0.30–0.60 µm** model interval
+with a nonzero, potentially observable secondary-fold window.
+
+**Not tested here:** independent randomness in the two walls,
+out-of-plane roughness, arbitrary Fourier-phase errors,
+surface chemistry, contact-line pinning or uncertainty in
+volume inferred from real videos. The table is **not a
+statistical fabrication-tolerance guarantee**.
+
+The additional reproducible output is
+`round10_amplitude_sensitivity.csv` and a standalone
+`round10_amplitude_sensitivity.png` figure under
+`cah-statics/outputs/`.
+
 ## 5. Experimental falsification plan
 
 The sharpest prediction is not whether a liquid
