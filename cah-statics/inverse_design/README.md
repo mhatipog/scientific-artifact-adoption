@@ -37,3 +37,12 @@ Run offline:
 ```sh
 python -m unittest discover -s cah-statics/inverse_design/tests -p 'test_pressure_volume_bridge.py' -v
 ```
+
+## Direct nonlinear branch check
+
+The [Round-15 note](../ROUND15_SINGLE_FRONT_BRIDGE.md) also compares the measured \(\eta^2/(q-Q_c)\) of eight **directly solved untruncated reduced-model equilibria** against \(-6P''/P'''\). The relative error falls to **0.065% / 0.022%** for a 0.5-µm centre shift in the −/+ geometries, respectively, with \(O(c^2)\) convergence. The [solver and quadrature reproducer](local_branch_validation.py), [eight-row numerical data](derived/nonlinear_local_branch.csv) and [three offline regression tests](tests/test_local_branch_validation.py) contain the exact outputs. This tests the *reduced local equilibrium branch*, not its 3D stability or a jump distance.
+
+```sh
+python -m unittest discover -s cah-statics/inverse_design/tests -p 'test_local_branch_validation.py' -v
+python cah-statics/inverse_design/local_branch_validation.py --csv
+```
