@@ -1,7 +1,11 @@
 """Offline, zero-network checks for sparse_third_wettability.py."""
 import struct
 import unittest
+import sys
+from pathlib import Path
 import numpy as np
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from sparse_third_wettability import (
     BYTES_PER_FRAME, EXPECTED_FRAMES, analyze, crossing,
     find_pore, parse_first_ifd, parse_nd2_info,
